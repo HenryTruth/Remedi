@@ -3,14 +3,18 @@ import { View, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import { Hscreen } from '../../components/containers';
 import AppText from '../../components/app-text';
-import { useCreateReminder } from './useCreateReminder';
+import { useReminderForm } from './useReminderForm';
 import { styles } from './styles';
 import { pallete } from '../../configs/Colors';
 import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
 import { GlobalScreenTypes } from '../../configs/global-screen-types';
 
-const CreateReminderScreen = ({ navigation }: GlobalScreenTypes) => {
+const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
+  // Get editing data from navigation params
+  const editingReminder = route?.params?.reminder;
+  const isEditMode = !!editingReminder;
+
   const {
     form,
     timeOptions,
@@ -21,7 +25,7 @@ const CreateReminderScreen = ({ navigation }: GlobalScreenTypes) => {
     isFormValid,
     submitForm,
     getRecommendedTimes,
-  } = useCreateReminder();
+  } = useReminderForm({ editingReminder, isEditMode });
 
   const handleSubmit = () => {
     const result = submitForm();
@@ -59,7 +63,7 @@ const CreateReminderScreen = ({ navigation }: GlobalScreenTypes) => {
 
           {/* Page Title */}
           <AppText 
-            text="Create Reminder"
+            text={isEditMode ? "Edit Reminder" : "Create Reminder"}
             styles={styles.pageTitle}
             color={pallete.text}
             fontSize={moderateSize(16)}
@@ -101,7 +105,7 @@ const CreateReminderScreen = ({ navigation }: GlobalScreenTypes) => {
               fontWeight={fontFamilyWeightMap.Regular}
             />
             <View style={styles.timeOptionsContainer}>
-              {timeOptions.map((time) => (
+              {timeOptions.map((time: string) => (
                 <TouchableOpacity
                   key={time}
                   style={[
@@ -141,7 +145,7 @@ const CreateReminderScreen = ({ navigation }: GlobalScreenTypes) => {
               fontWeight={fontFamilyWeightMap.Medium}
             />
             <View style={styles.frequencyContainer}>
-              {frequencyOptions.map((freq) => (
+              {frequencyOptions.map((freq: string) => (
                 <TouchableOpacity
                   key={freq}
                   style={[
@@ -176,7 +180,7 @@ const CreateReminderScreen = ({ navigation }: GlobalScreenTypes) => {
         activeOpacity={0.8}
       >
         <AppText 
-          text="Done"
+          text={isEditMode ? "Update" : "Done"}
           styles={styles.doneButtonText}
           color={pallete.light}
           fontSize={moderateSize(18)}
@@ -186,4 +190,4 @@ const CreateReminderScreen = ({ navigation }: GlobalScreenTypes) => {
     </View>
   );
 };
-export default CreateReminderScreen
+export default ReminderFormScreen

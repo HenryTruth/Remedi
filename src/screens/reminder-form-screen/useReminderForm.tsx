@@ -1,17 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Reminder } from '../home-screen/useHome';
 
-export interface CreateReminderForm {
+export interface ReminderFormData {
   pillName: string;
   selectedTimes: string[];
   frequency: string;
 }
 
-export const useCreateReminder = () => {
-  const [form, setForm] = useState<CreateReminderForm>({
+export interface UseReminderFormProps {
+  editingReminder?: Reminder;
+  isEditMode?: boolean;
+}
+
+export const useReminderForm = ({ editingReminder, isEditMode = false }: UseReminderFormProps = {}) => {
+  const [form, setForm] = useState<ReminderFormData>({
     pillName: '',
     selectedTimes: [],
     frequency: '1x',
   });
+
+  // Initialize form with editing data
+  useEffect(() => {
+    if (isEditMode && editingReminder) {
+      // Convert existing reminder data to form format
+      const frequency = editingReminder.dosage || '1x'; // Assuming dosage contains frequency info
+      const times = editingReminder.time ? [editingReminder.time] : [];
+      
+      setForm({
+        pillName: editingReminder.medicationName,
+        selectedTimes: times,
+        frequency: frequency,
+      });
+    }
+  }, [isEditMode, editingReminder]);
 
   const timeOptions = ['8am', '12pm', '6pm'];
   const frequencyOptions = ['1x', '2x', '3x'];
@@ -81,7 +102,11 @@ export const useCreateReminder = () => {
   const submitForm = () => {
     if (isFormValid()) {
       console.log('Submitting form:', form);
-      return form;
+      return {
+        ...form,
+        isEditMode,
+        editingId: editingReminder?.id,
+      };
     }
     return null;
   };
@@ -97,5 +122,7 @@ export const useCreateReminder = () => {
     resetForm,
     submitForm,
     getRecommendedTimes,
+    isEditMode,
+    editingReminder,
   };
 };

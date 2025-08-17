@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { CreateReminderScreen, HomeScreen, LoginScreen, LogoutScreen, RegisterScreen } from "../../screens";
+import { HomeScreen, LoginScreen, LogoutScreen, RegisterScreen, ReminderFormScreen } from "../../screens";
 import { NavigationParamList, Stack } from "../router-constants";
 import { routes } from "../router-constants/routes";
 
@@ -24,7 +24,7 @@ const AppStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name={routes.HomeScreen} component={HomeScreen} options={{headerShown:false}}/>
-      <Stack.Screen name={routes.CreateReminderScreen} component={CreateReminderScreen} options={{headerShown:false}}/>
+      <Stack.Screen name={routes.ReminderFormScreen} component={ReminderFormScreen} options={{headerShown:false}}/>
       <Stack.Screen name={routes.LogoutScreen} component={LogoutScreen} options={{headerShown:false}}/>
     </Stack.Navigator>
   );

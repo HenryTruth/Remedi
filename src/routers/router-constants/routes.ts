@@ -5,7 +5,7 @@ export const routes: Record<keyof NavigationParamList, keyof NavigationParamList
     RegisterScreen: "RegisterScreen",
     LoginScreen: "LoginScreen",
     HomeScreen: "HomeScreen",
-    CreateReminderScreen: "CreateReminderScreen",
+    ReminderFormScreen: "ReminderFormScreen",
     LogoutScreen: "LogoutScreen",
     ApplicationProvider: "ApplicationProvider",
     AuthenticationProvider: "AuthenticationProvider"

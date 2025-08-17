@@ -16,6 +16,7 @@ import { routes } from '../../routers/router-constants/routes';
 
 const HomeScreen = ({navigation}:GlobalScreenTypes) => {
   const { 
+    reminders,
     upcomingReminders, 
     completedReminders, 
     completeReminder 
@@ -24,12 +25,15 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
   const handleAddReminder = () => {
     // Navigate to create reminder screen
     console.log('Navigate to create reminder');
-    navigation.navigate(routes.CreateReminderScreen);
+    navigation.navigate('ReminderFormScreen', {});
   };
 
   const handleReminderPress = (id: string) => {
-    // Navigate to reminder details or edit
-    console.log('Navigate to reminder details:', id);
+    // Navigate to edit reminder screen
+    const reminder = reminders.find((r: any) => r.id === id);
+    if (reminder) {
+      navigation.navigate('ReminderFormScreen', { reminder });
+    }
   };
 
   const handleProfilePress = () => {
