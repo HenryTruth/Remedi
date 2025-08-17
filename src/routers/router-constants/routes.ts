@@ -1,3 +1,4 @@
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { NavigationParamList } from ".";
 
 export const routes: Record<keyof NavigationParamList, keyof NavigationParamList> = {
@@ -9,3 +10,5 @@ export const routes: Record<keyof NavigationParamList, keyof NavigationParamList
     ApplicationProvider: "ApplicationProvider",
     AuthenticationProvider: "AuthenticationProvider"
 }
+
+export type NavigationProps = NativeStackNavigationProp<NavigationParamList>;

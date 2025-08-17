@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {pallete} from '../../configs/Colors';
 import { moderateSize } from '../../utils/useResponsiveness';
-import { SCREEN_HEIGHT } from '../../configs/config';
+import { hp, SCREEN_HEIGHT } from '../../configs/config';
 import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 
 
@@ -32,7 +32,10 @@ export const styles = StyleSheet.create({
   },
 
   buttonStyles:{
-    backgroundColor:pallete.antBlue,
+    backgroundColor:pallete.dark,
     fontWeight:fontFamilyWeightMap.SemiBold,
+    borderRadius: moderateSize(8),
+    paddingVertical: hp(14),
+
   }
 });
