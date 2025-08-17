@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { View, TouchableOpacity, TextInput } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import { Hscreen } from '../../components/containers';
 import AppText from '../../components/app-text';

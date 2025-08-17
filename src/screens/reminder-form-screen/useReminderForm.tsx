@@ -1,16 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Reminder } from '../home-screen/useHome';
+import {ReminderFormData, UseReminderFormProps} from './type';
 
-export interface ReminderFormData {
-  pillName: string;
-  selectedTimes: string[];
-  frequency: string;
-}
 
-export interface UseReminderFormProps {
-  editingReminder?: Reminder;
-  isEditMode?: boolean;
-}
 
 export const useReminderForm = ({ editingReminder, isEditMode = false }: UseReminderFormProps = {}) => {
   const [form, setForm] = useState<ReminderFormData>({

@@ -1,13 +1,5 @@
-import { useState, useEffect } from 'react';
-
-export interface Reminder {
-  id: string;
-  medicationName: string;
-  dosage: string;
-  time: string;
-  isCompleted: boolean;
-  createdAt: Date;
-}
+import { useState } from 'react';
+import {Reminder} from './type'
 
 export const useHome = () => {
   const [reminders, setReminders] = useState<Reminder[]>([

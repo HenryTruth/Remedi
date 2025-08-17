@@ -12,7 +12,7 @@ import { pallete } from '../../configs/Colors';
 import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
 import { GlobalScreenTypes } from '../../configs/global-screen-types';
-import { routes } from '../../routers/router-constants/routes';
+
 
 const HomeScreen = ({navigation}:GlobalScreenTypes) => {
   const { 
