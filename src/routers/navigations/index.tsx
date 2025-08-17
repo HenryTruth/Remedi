@@ -23,15 +23,15 @@ const AuthenticationStack = () => {
 const AppStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name={routes.HomeScreen} component={HomeScreen} />
-      <Stack.Screen name={routes.CreateReminderScreen} component={CreateReminderScreen} />
-      <Stack.Screen name={routes.LogoutScreen} component={LogoutScreen} />
+      <Stack.Screen name={routes.HomeScreen} component={HomeScreen} options={{headerShown:false}}/>
+      <Stack.Screen name={routes.CreateReminderScreen} component={CreateReminderScreen} options={{headerShown:false}}/>
+      <Stack.Screen name={routes.LogoutScreen} component={LogoutScreen} options={{headerShown:false}}/>
     </Stack.Navigator>
   );
 };
 
 const NavigationProvider = () => {
-  const isAuthenticated = false; // Replace with your actual auth state
+  const isAuthenticated = true; // Replace with your actual auth state
 
   return (
     <NavigationContainer>
