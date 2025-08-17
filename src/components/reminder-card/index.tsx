@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React, { useRef } from 'react';
+import { View, TouchableOpacity, Animated, Alert } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import AppText from '../app-text';
 import { styles } from './styles';
@@ -15,6 +15,7 @@ export interface ReminderCardProps {
   isCompleted?: boolean;
   onPress?: () => void;
   onComplete?: () => void;
+  onDelete?: () => void;
 }
 
 export const ReminderCard: React.FC<ReminderCardProps> = ({
@@ -24,13 +25,36 @@ export const ReminderCard: React.FC<ReminderCardProps> = ({
   isCompleted = false,
   onPress,
   onComplete,
+  onDelete,
 }) => {
+  const handleLongPress = () => {
+    if (onDelete) {
+      Alert.alert(
+        'Delete Reminder',
+        `Are you sure you want to delete "${medicationName}"?`,
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Delete',
+            style: 'destructive',
+            onPress: onDelete,
+          },
+        ]
+      );
+    }
+  };
   return (
-    <TouchableOpacity 
-      style={[styles.container, isCompleted && styles.completedContainer]} 
-      onPress={onPress}
-      activeOpacity={0.7}
-    >
+    <View style={styles.cardWrapper}>
+      <TouchableOpacity 
+        style={[styles.container, isCompleted && styles.completedContainer]} 
+        onPress={onPress}
+        onLongPress={handleLongPress}
+        activeOpacity={0.7}
+        delayLongPress={500}
+      >
       <View style={styles.content}>
         <View style={styles.leftContent}>
           <AppText 
@@ -71,6 +95,18 @@ export const ReminderCard: React.FC<ReminderCardProps> = ({
           )}
         </View>
       </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      
+      {/* Delete Button - Overlay */}
+      {onDelete && (
+        <TouchableOpacity 
+          style={styles.deleteButton}
+          onPress={handleLongPress}
+          activeOpacity={0.7}
+        >
+          <Icon name="trash-outline" size={16} color={pallete.error} />
+        </TouchableOpacity>
+      )}
+    </View>
   );
 };

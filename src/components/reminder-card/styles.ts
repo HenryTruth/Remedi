@@ -57,4 +57,19 @@ export const styles = StyleSheet.create({
   completeButton: {
     padding: moderateSize(4),
   },
+  cardWrapper: {
+    position: 'relative',
+  },
+  deleteButton: {
+    position: 'absolute',
+    top: Size.calcHeight(8),
+    right: Size.calcWidth(8),
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    borderRadius: moderateSize(12),
+    padding: moderateSize(6),
+    ...shadowStyles,
+    shadowColor: pallete.error,
+    shadowOpacity: 0.3,
+    zIndex: 10,
+  },
 });

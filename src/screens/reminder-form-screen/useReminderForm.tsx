@@ -13,14 +13,10 @@ export const useReminderForm = ({ editingReminder, isEditMode = false }: UseRemi
   // Initialize form with editing data
   useEffect(() => {
     if (isEditMode && editingReminder) {
-      // Convert existing reminder data to form format
-      const frequency = editingReminder.dosage || '1x'; // Assuming dosage contains frequency info
-      const times = editingReminder.time ? [editingReminder.time] : [];
-      
       setForm({
         pillName: editingReminder.medicationName,
-        selectedTimes: times,
-        frequency: frequency,
+        selectedTimes: editingReminder.times,
+        frequency: editingReminder.frequency,
       });
     }
   }, [isEditMode, editingReminder]);

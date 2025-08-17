@@ -19,7 +19,8 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
     reminders,
     upcomingReminders, 
     completedReminders, 
-    completeReminder 
+    completeReminder,
+    deleteReminder
   } = useHome();
 
   const handleAddReminder = () => {
@@ -34,6 +35,10 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
     if (reminder) {
       navigation.navigate('ReminderFormScreen', { reminder });
     }
+  };
+
+  const handleDeleteReminder = (id: string) => {
+    deleteReminder(id);
   };
 
   const handleProfilePress = () => {
@@ -87,10 +92,11 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
                   id={reminder.id}
                   medicationName={reminder.medicationName}
                   dosage={reminder.dosage}
-                  time={reminder.time}
+                  time={reminder.times.join(', ')}
                   isCompleted={false}
                   onPress={() => handleReminderPress(reminder.id)}
                   onComplete={() => completeReminder(reminder.id)}
+                  onDelete={() => handleDeleteReminder(reminder.id)}
                 />
               ))
             ) : (
@@ -120,9 +126,10 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
                     id={reminder.id}
                     medicationName={reminder.medicationName}
                     dosage={reminder.dosage}
-                    time={reminder.time}
+                    time={reminder.times.join(', ')}
                     isCompleted={true}
                     onPress={() => handleReminderPress(reminder.id)}
+                    onDelete={() => handleDeleteReminder(reminder.id)}
                   />
                 ))}
               </>
