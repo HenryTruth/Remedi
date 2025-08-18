@@ -14,7 +14,59 @@ export interface ScheduledNotification {
   isActive: boolean;
 }
 
+import { Platform } from 'react-native';
+
 class NotificationService {
+  initialize() {
+    PushNotification.configure({
+      onRegister: function (token) {
+        console.log('TOKEN:', token);
+      },
+
+      onNotification: function (notification) {
+        console.log('NOTIFICATION:', notification);
+
+        if (notification.action === 'Take Now') {
+          console.log('User chose to take medication now');
+        } else if (notification.action === 'Snooze') {
+          console.log('User chose to snooze medication');
+        }
+
+        notification.finish && notification.finish('UIBackgroundFetchResultNoData');
+      },
+
+      onRegistrationError: function (err) {
+        console.error(err.message, err);
+      },
+
+      permissions: {
+        alert: true,
+        badge: true,
+        sound: true,
+      },
+
+      popInitialNotification: true,
+
+      requestPermissions: Platform.OS === 'ios',
+    });
+
+    // Create notification channel for Android
+    if (Platform.OS === 'android') {
+      PushNotification.createChannel(
+        {
+          channelId: 'medication-reminders',
+          channelName: 'Medication Reminders',
+          channelDescription: 'Notifications for medication reminders',
+          playSound: true,
+          soundName: 'default',
+          importance: 4, // High importance
+          vibrate: true,
+        },
+        (created) => console.log(`Channel created: ${created}`),
+      );
+    }
+  }
+
   // Get all scheduled notifications
   async getScheduledNotifications(): Promise<ScheduledNotification[]> {
     try {
