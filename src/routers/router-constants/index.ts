@@ -6,7 +6,7 @@ export type NavigationParamList = {
     LoginScreen: undefined;
     HomeScreen:undefined;
     ReminderFormScreen: { reminder?: Reminder };
-    LogoutScreen:undefined;
+    ProfileScreen:undefined;
     ApplicationProvider:undefined;
     AuthenticationProvider:undefined;
 

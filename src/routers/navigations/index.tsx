@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { HomeScreen, LoginScreen, LogoutScreen, RegisterScreen, ReminderFormScreen } from "../../screens";
-import { NavigationParamList, Stack } from "../router-constants";
+import { HomeScreen, LoginScreen, ProfileScreen, RegisterScreen, ReminderFormScreen } from "../../screens";
+import { Stack } from "../router-constants";
 import { routes } from "../router-constants/routes";
 
 type RootStackParamList = {
@@ -22,10 +22,10 @@ const AuthenticationStack = () => {
 
 const AppStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName={routes.ProfileScreen}>
       <Stack.Screen name={routes.HomeScreen} component={HomeScreen} options={{headerShown:false}}/>
       <Stack.Screen name={routes.ReminderFormScreen} component={ReminderFormScreen} options={{headerShown:false}}/>
-      <Stack.Screen name={routes.LogoutScreen} component={LogoutScreen} options={{headerShown:false}}/>
+      <Stack.Screen name={routes.ProfileScreen} component={ProfileScreen} options={{headerShown:false}}/>
     </Stack.Navigator>
   );
 };

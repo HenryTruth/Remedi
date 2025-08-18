@@ -12,6 +12,7 @@ import { pallete } from '../../configs/Colors';
 import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
 import { GlobalScreenTypes } from '../../configs/global-screen-types';
+import { routes } from '../../routers/router-constants/routes';
 
 
 const HomeScreen = ({navigation}:GlobalScreenTypes) => {
@@ -26,14 +27,14 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
   const handleAddReminder = () => {
     // Navigate to create reminder screen
     console.log('Navigate to create reminder');
-    navigation.navigate('ReminderFormScreen', {});
+    navigation.navigate(routes.ReminderFormScreen, { reminder: undefined });
   };
 
   const handleReminderPress = (id: string) => {
     // Navigate to edit reminder screen
     const reminder = reminders.find((r: any) => r.id === id);
     if (reminder) {
-      navigation.navigate('ReminderFormScreen', { reminder });
+      navigation.navigate(routes.ReminderFormScreen, { reminder });
     }
   };
 
@@ -43,7 +44,7 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
 
   const handleProfilePress = () => {
     // Navigate to profile screen
-    console.log('Navigate to profile');
+    navigation.navigate(routes.ProfileScreen);
   };
 
   return (

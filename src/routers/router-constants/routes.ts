@@ -1,14 +1,14 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { NavigationParamList } from ".";
 
-export const routes: Record<keyof NavigationParamList, keyof NavigationParamList> = {
+export const routes = {
     RegisterScreen: "RegisterScreen",
     LoginScreen: "LoginScreen",
     HomeScreen: "HomeScreen",
     ReminderFormScreen: "ReminderFormScreen",
-    LogoutScreen: "LogoutScreen",
+    ProfileScreen: "ProfileScreen",
     ApplicationProvider: "ApplicationProvider",
     AuthenticationProvider: "AuthenticationProvider"
-}
+} as const;
 
 export type NavigationProps = NativeStackNavigationProp<NavigationParamList>;
