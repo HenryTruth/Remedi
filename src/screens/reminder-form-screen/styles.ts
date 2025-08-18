@@ -30,6 +30,14 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
     color: pallete.text,
   },
+  backButton: {
+    width: moderateSize(40),
+    height: moderateSize(40),
+    borderRadius: moderateSize(20),
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   profileButton: {
     width: moderateSize(40),
     height: moderateSize(40),

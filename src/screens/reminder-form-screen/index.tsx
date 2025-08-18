@@ -51,6 +51,13 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
         <View style={styles.container}>
           {/* Header */}
           <View style={styles.header}>
+            <TouchableOpacity 
+              style={styles.backButton}
+              onPress={() => navigation.goBack()}
+              activeOpacity={0.7}
+            >
+              <Icon name="arrow-back" size={24} color={pallete.text} />
+            </TouchableOpacity>
             <AppText 
               text="Remedi"
               styles={styles.appTitle}

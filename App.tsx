@@ -15,46 +15,35 @@ enableScreens();
 
 function App(): React.JSX.Element {
   useEffect(() => {
-    // Configure PushNotification
     PushNotification.configure({
-      // Called when token is generated (iOS and Android)
       onRegister: function (token) {
         console.log('TOKEN:', token);
       },
 
-      // Called when a remote or local notification is opened or received
       onNotification: function (notification) {
         console.log('NOTIFICATION:', notification);
         
-        // Handle notification actions
         if (notification.action === 'Take Now') {
-          // Handle "Take Now" action
           console.log('User chose to take medication now');
         } else if (notification.action === 'Snooze') {
-          // Handle "Snooze" action - reschedule for 10 minutes later
           console.log('User chose to snooze medication');
         }
 
-        // Required on iOS only (see fetchCompletionHandler docs: https://reactnative.dev/docs/pushnotificationios)
         notification.finish && notification.finish('UIBackgroundFetchResultNoData');
       },
 
-      // Called when the user fails to register for remote notifications
       onRegistrationError: function(err) {
         console.error(err.message, err);
       },
 
-      // IOS ONLY (optional): default: all - Permissions to register.
       permissions: {
         alert: true,
         badge: true,
         sound: true,
       },
 
-      // Should the initial notification be popped automatically
       popInitialNotification: true,
 
-      // (optional) default: true
       requestPermissions: Platform.OS === 'ios',
     });
 
