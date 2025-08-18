@@ -28,19 +28,20 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     try {
       setIsLoading(true);
       // For now, assume permissions are granted
-      // TODO: Implement actual permission check when notification library is available
       setHasPermission(true);
     } catch (error) {
       console.error('Error checking notification permissions:', error);
       setHasPermission(false);
     } finally {
+      // Request notification permissions
+      requestPermissions();
       setIsLoading(false);
     }
   };
 
   const requestPermissions = async (): Promise<boolean> => {
     try {
-      setIsLoading(true);
+      console.log('[NOTIFICATION CONTEXT] Requesting permissions...');
       const granted = await notificationService.requestPermissions();
       setHasPermission(granted);
       return granted;
@@ -48,8 +49,6 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
       console.error('Error requesting permissions:', error);
       setHasPermission(false);
       return false;
-    } finally {
-      setIsLoading(false);
     }
   };
 

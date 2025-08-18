@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PushNotification from 'react-native-push-notification';
 import { Reminder } from '../screens/home-screen/type';
 
 const SCHEDULED_NOTIFICATIONS_KEY = '@remedi_scheduled_notifications';
@@ -125,54 +126,58 @@ class NotificationService {
     return scheduledDate;
   }
 
-  // Schedule a local notification (placeholder - will be implemented with notification library)
+  // Schedule a local notification
   private async scheduleLocalNotification(notification: ScheduledNotification): Promise<void> {
     try {
-      // Placeholder for actual notification scheduling
-      // This would use react-native-push-notification or similar library
-      console.log(`[NOTIFICATION SCHEDULED] ${notification.medicationName} (${notification.dosage}) at ${notification.time}`);
+      PushNotification.localNotificationSchedule({
+        id: notification.id,
+        title: "💊 Medication Reminder",
+        message: `Time to take ${notification.medicationName} (${notification.dosage})`,
+        date: notification.scheduledDate,
+        repeatType: 'day', // Repeat daily
+        channelId: 'medication-reminders', // Android channel
+        actions: ['Take Now', 'Snooze'],
+        userInfo: {
+          reminderId: notification.reminderId,
+          medicationName: notification.medicationName,
+          dosage: notification.dosage,
+        },
+        playSound: true,
+        soundName: 'default',
+        vibrate: true,
+        vibration: 300,
+        importance: 'high',
+        invokeApp: true,
+      });
       
-      // TODO: Implement actual notification scheduling when library is available
-      // Example:
-      // PushNotification.localNotificationSchedule({
-      //   title: "Medication Reminder",
-      //   message: `Time to take ${notification.medicationName} (${notification.dosage})`,
-      //   date: notification.scheduledDate,
-      //   id: notification.id,
-      // });
+      console.log(`[NOTIFICATION SCHEDULED] ${notification.medicationName} (${notification.dosage}) at ${notification.time}`);
     } catch (error) {
       console.error('Error scheduling local notification:', error);
       throw error;
     }
   }
 
-  // Cancel a local notification (placeholder - will be implemented with notification library)
+  // Cancel a local notification
   private async cancelLocalNotification(notificationId: string): Promise<void> {
     try {
-      // Placeholder for actual notification cancellation
+      PushNotification.cancelLocalNotifications({ id: notificationId });
       console.log(`[NOTIFICATION CANCELLED] ${notificationId}`);
-      
-      // TODO: Implement actual notification cancellation when library is available
-      // Example:
-      // PushNotification.cancelLocalNotifications({ id: notificationId });
     } catch (error) {
       console.error('Error cancelling local notification:', error);
       throw error;
     }
   }
 
-  // Request notification permissions (placeholder)
+  // Request notification permissions
   async requestPermissions(): Promise<boolean> {
     try {
-      // Placeholder for permission request
       console.log('[NOTIFICATION PERMISSIONS] Requesting permissions...');
       
-      // TODO: Implement actual permission request when library is available
-      // Example:
-      // const permissions = await PushNotification.requestPermissions();
-      // return permissions.alert && permissions.badge && permissions.sound;
+      const permissions = await PushNotification.requestPermissions(['alert', 'badge', 'sound']);
+      const granted = !!(permissions.alert && permissions.badge && permissions.sound);
       
-      return true; // Assume granted for now
+      console.log('[NOTIFICATION PERMISSIONS] Granted:', granted);
+      return granted;
     } catch (error) {
       console.error('Error requesting notification permissions:', error);
       return false;
