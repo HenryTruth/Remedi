@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     paddingTop: moderateSize(48),
     textAlign: 'center',
   },
+  
   mainContainer: {
     flex: 1,
     backgroundColor: pallete.screen,
