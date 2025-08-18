@@ -8,7 +8,8 @@ export const routes = {
     ReminderFormScreen: "ReminderFormScreen",
     ProfileScreen: "ProfileScreen",
     ApplicationProvider: "ApplicationProvider",
-    AuthenticationProvider: "AuthenticationProvider"
+    AuthenticationProvider: "AuthenticationProvider",
+    OnboardingScreen:"OnboardingScreen",
 } as const;
 
 export type NavigationProps = NativeStackNavigationProp<NavigationParamList>;

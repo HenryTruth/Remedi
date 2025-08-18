@@ -8,34 +8,43 @@ import { fontFamilyWeightMap } from "../../configs/ThemeSetup";
 import AppButton from "../../components/app-button";
 import useRegister from "./useRegister";
 import { GlobalScreenTypes } from "../../configs/global-screen-types";
+import FormInputField from "../../components/containers/form-input-field";
 
 const RegisterScreen = ({navigation}:GlobalScreenTypes) => {
-    const { navigateToCreateAccount, navigateToLogin } = useRegister({navigation});
-
-    const buttons = [
-        { text: "Create Account", onPress: navigateToCreateAccount },
-        { text: "Login", onPress: navigateToLogin },
-    ];
+    const { 
+        registrationFields,
+        handleRegister,
+        isLoading
+    } = useRegister({navigation});
 
     return (
         <HScreen screenColor={pallete.screen} hasPadding={false}>
-            <View style={styles.mainContainer}>
+            <View style={{flex: 1}}>
                 <View style={styles.contentContainer}>
                     <AppText text="Remedi" fontSize={moderateSize(24)} fontWeight={fontFamilyWeightMap.Bold} />
                 </View>
-                <View style={styles.buttonContainer}>
-                    {buttons.map((button, index) => (
-                        <AppButton
-                            key={index}
-                            text={button.text}
-                            textColor={pallete.light}
-                            fontSize={moderateSize(14)}
-                            onPress={button.onPress}
-                            style={styles.buttonStyles}
-                            fontWeight={fontFamilyWeightMap.SemiBold}
-                        />
+                    
+                <View style={styles.headerStyle}>
+                    <AppText text="Create Account" fontSize={moderateSize(16)} fontWeight={fontFamilyWeightMap.SemiBold} styles={{textAlign:'center'}} />
+                </View>
+                
+                <View style={styles.formContainer}>
+                    {registrationFields.map((field, index) => (
+                        <FormInputField key={index} field={field} />
                     ))}
                 </View>
+            </View>
+
+            <View style={styles.bottomButtonContainer}>
+                <AppButton
+                    text={isLoading ? "Creating Account..." : "Create Account"}
+                    textColor={pallete.light}
+                    fontSize={moderateSize(14)}
+                    onPress={handleRegister}
+                    style={styles.submitButton}
+                    fontWeight={fontFamilyWeightMap.SemiBold}
+                    disabled={isLoading}
+                />
             </View>
         </HScreen>
     );

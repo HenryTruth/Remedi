@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Alert } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import { Hscreen } from '../../components/containers';
 import { ReminderCard } from '../../components/reminder-card';
 import { SectionHeader } from '../../components/section-header';
-import { FloatingActionButton } from '../../components/floating-action-button';
+import { FloatingActionButton } from '../../components/containers/floating-action-button';
 import AppText from '../../components/app-text';
 import { useHome } from './useHome';
 import { styles } from './style';
@@ -13,9 +13,11 @@ import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
 import { GlobalScreenTypes } from '../../configs/global-screen-types';
 import { routes } from '../../routers/router-constants/routes';
+import { useAuth } from '../../contexts/AuthContext';
 
 
 const HomeScreen = ({navigation}:GlobalScreenTypes) => {
+  const { logout } = useAuth();
   const { 
     reminders,
     upcomingReminders, 
@@ -47,6 +49,30 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
     navigation.navigate(routes.ProfileScreen);
   };
 
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await logout();
+            } catch (error) {
+              Alert.alert('Error', 'Failed to logout. Please try again.');
+            }
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <View style={styles.screenContainer}>
       <Hscreen screenColor={pallete.screen} hasPadding={false}>
@@ -60,13 +86,22 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
               fontSize={moderateSize(28)}
               fontWeight={fontFamilyWeightMap.Bold}
             />
-            <TouchableOpacity 
-              style={styles.profileButton}
-              onPress={handleProfilePress}
-              activeOpacity={0.7}
-            >
-              <Icon name="person" size={20} color={pallete.light} />
-            </TouchableOpacity>
+            <View style={styles.headerButtons}>
+              <TouchableOpacity 
+                style={styles.logoutButton}
+                onPress={handleLogout}
+                activeOpacity={0.7}
+              >
+                <Icon name="log-out-outline" size={20} color={pallete.light} />
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={styles.profileButton}
+                onPress={handleProfilePress}
+                activeOpacity={0.7}
+              >
+                <Icon name="person" size={20} color={pallete.light} />
+              </TouchableOpacity>
+            </View>
           </View>
 
           {/* Dashboard Title */}

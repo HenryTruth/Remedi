@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
-import { moderateSize } from "../../utils/useResponsiveness";
-import { pallete } from "../../configs/Colors";
-import { hp } from "../../configs/config";
-import { wp } from "../../configs/config";
+import { moderateSize } from "../../../utils/useResponsiveness";
+import { pallete } from "../../../configs/Colors";
+import { hp } from "../../../configs/config";
+import { wp } from "../../../configs/config";
 
 const styles = StyleSheet.create({
     inputLabel: {

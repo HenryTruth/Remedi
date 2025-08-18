@@ -62,13 +62,54 @@ export const validatePassword = (password: string): ValidationResult => {
   return { isValid: true };
 };
 
-export const validateLoginForm = (username: string, password: string) => {
-  const usernameValidation = validateUsername(username);
+export const validateEmail = (email: string): ValidationResult => {
+  if (!email.trim()) {
+    return {
+      isValid: false,
+      errorMessage: "Email is required"
+    };
+  }
+  
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return {
+      isValid: false,
+      errorMessage: "Please enter a valid email address"
+    };
+  }
+  
+  return { isValid: true };
+};
+
+export const validateLoginForm = (email: string, password: string) => {
+  const emailValidation = validateEmail(email);
   const passwordValidation = validatePassword(password);
   
   return {
-    username: usernameValidation,
+    email: emailValidation,
     password: passwordValidation,
-    isFormValid: usernameValidation.isValid && passwordValidation.isValid
+    isFormValid: emailValidation.isValid && passwordValidation.isValid
+  };
+};
+
+export const validateRegistrationForm = (username: string, email: string, password: string, confirmPassword: string) => {
+  const usernameValidation = validateUsername(username);
+  const emailValidation = validateEmail(email);
+  const passwordValidation = validatePassword(password);
+  
+  let confirmPasswordValidation: ValidationResult = { isValid: true };
+  if (password !== confirmPassword) {
+    confirmPasswordValidation = {
+      isValid: false,
+      errorMessage: "Passwords do not match"
+    };
+  }
+  
+  return {
+    username: usernameValidation,
+    email: emailValidation,
+    password: passwordValidation,
+    confirmPassword: confirmPasswordValidation,
+    isFormValid: usernameValidation.isValid && emailValidation.isValid && passwordValidation.isValid && confirmPasswordValidation.isValid
   };
 };

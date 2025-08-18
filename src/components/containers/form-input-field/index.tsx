@@ -1,11 +1,11 @@
 import { View } from "react-native";
-import { FormField } from "../../screens/login-screen/type";
-import AppText from "../app-text";
-import AppInput from "../app-input";
+import { FormField } from "../../../screens/login-screen/type";
+import AppText from "../../app-text";
+import AppInput from "../../app-input";
 import styles from "./style";
-import { moderateSize } from "../../utils/useResponsiveness";
-import { fontFamilyWeightMap } from "../../configs/ThemeSetup";
-import { pallete } from "../../configs/Colors";
+import { moderateSize } from "../../../utils/useResponsiveness";
+import { fontFamilyWeightMap } from "../../../configs/ThemeSetup";
+import { pallete } from "../../../configs/Colors";
 
 const FormInputField = ({ field }: { field: FormField }) => (
     <View style={styles.inputContainer}>

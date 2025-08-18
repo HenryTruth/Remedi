@@ -7,10 +7,10 @@ import { fontFamilyWeightMap } from "../../configs/ThemeSetup";
 import { styles } from "./style";
 import { moderateSize } from "../../utils/useResponsiveness";
 import { useLogin } from "./useLogin";
-import FormInputField from "../../components/form-input-field";
+import FormInputField from "../../components/containers/form-input-field";
 
 const LoginScreen = () => {
-    const { formFields, handleLogin } = useLogin();
+    const { formFields, handleLogin, isLoading } = useLogin();
 
     return(
         <HScreen screenColor={pallete.screen} hasPadding={false}>
@@ -32,12 +32,13 @@ const LoginScreen = () => {
 
             <View style={styles.bottomButtonContainer}>
                 <AppButton
-                    text="Login"
+                    text={isLoading ? "Logging in..." : "Login"}
                     textColor={pallete.light}
                     fontSize={moderateSize(14)}
                     onPress={handleLogin}
                     style={styles.submitButton}
                     fontWeight={fontFamilyWeightMap.SemiBold}
+                    disabled={isLoading}
                 />
             </View>
         </HScreen>

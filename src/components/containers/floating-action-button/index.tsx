@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import { styles } from './styles';
-import { pallete } from '../../configs/Colors';
+import { pallete } from '../../../configs/Colors';
 
 export interface FloatingActionButtonProps {
   onPress: () => void;

@@ -9,6 +9,7 @@ export type NavigationParamList = {
     ProfileScreen:undefined;
     ApplicationProvider:undefined;
     AuthenticationProvider:undefined;
+    OnboardingScreen:undefined;
 
 };
 

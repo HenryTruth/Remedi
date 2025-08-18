@@ -4,6 +4,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {enableScreens} from 'react-native-screens';
 import NavigationProvider from './src/routers/navigations';
 import { pallete } from './src/configs/Colors';
+import { AuthProvider } from './src/contexts/AuthContext';
 
 enableScreens();
 
@@ -13,7 +14,9 @@ function App(): React.JSX.Element {
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <SafeAreaView style={{flex: 1, backgroundColor: pallete.screen}}>
-            <NavigationProvider />
+        <AuthProvider>
+          <NavigationProvider />
+        </AuthProvider>
       </SafeAreaView>
     </GestureHandlerRootView>
   );
