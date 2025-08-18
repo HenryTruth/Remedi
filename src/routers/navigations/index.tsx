@@ -1,19 +1,21 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { CreateReminderScreen, HomeScreen, LoginScreen, LogoutScreen, RegisterScreen } from "../../screens";
-import { NavigationParamList, Stack } from "../router-constants";
+import { HomeScreen, LoginScreen, OnboardingScreen, ProfileScreen, RegisterScreen, ReminderFormScreen } from "../../screens";
+import { Stack } from "../router-constants";
 import { routes } from "../router-constants/routes";
+import { RootStackParamList } from "./type";
+import { useAuth } from "../../contexts/AuthContext";
+import { View, ActivityIndicator } from "react-native";
+import { pallete } from "../../configs/Colors";
 
-type RootStackParamList = {
-  ApplicationProvider: undefined;
-  AuthenticationProvider: undefined;
-};
+
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const AuthenticationStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName={routes.OnboardingScreen}>
+      <Stack.Screen name={routes.OnboardingScreen} component={OnboardingScreen} options={{headerShown:false}}/>
       <Stack.Screen name={routes.LoginScreen} component={LoginScreen} options={{headerShown:false}}/>
       <Stack.Screen name={routes.RegisterScreen} component={RegisterScreen} options={{headerShown:false}}/>
     </Stack.Navigator>
@@ -22,16 +24,24 @@ const AuthenticationStack = () => {
 
 const AppStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name={routes.HomeScreen} component={HomeScreen} />
-      <Stack.Screen name={routes.CreateReminderScreen} component={CreateReminderScreen} />
-      <Stack.Screen name={routes.LogoutScreen} component={LogoutScreen} />
+    <Stack.Navigator initialRouteName={routes.HomeScreen}>
+      <Stack.Screen name={routes.HomeScreen} component={HomeScreen} options={{headerShown:false}}/>
+      <Stack.Screen name={routes.ReminderFormScreen} component={ReminderFormScreen} options={{headerShown:false}}/>
+      <Stack.Screen name={routes.ProfileScreen} component={ProfileScreen} options={{headerShown:false}}/>
     </Stack.Navigator>
   );
 };
 
 const NavigationProvider = () => {
-  const isAuthenticated = false; // Replace with your actual auth state
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: pallete.screen }}>
+        <ActivityIndicator size="large" color={pallete.primary} />
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>

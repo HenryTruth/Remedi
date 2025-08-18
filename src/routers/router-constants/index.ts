@@ -1,13 +1,15 @@
 import { createNativeStackNavigator, NativeStackNavigationProp } from "@react-navigation/native-stack";
+import {Reminder} from "../../screens/home-screen/type";
 
 export type NavigationParamList = {
     RegisterScreen: undefined;
     LoginScreen: undefined;
     HomeScreen:undefined;
-    CreateReminderScreen:undefined;
-    LogoutScreen:undefined;
+    ReminderFormScreen: { reminder?: Reminder };
+    ProfileScreen:undefined;
     ApplicationProvider:undefined;
     AuthenticationProvider:undefined;
+    OnboardingScreen:undefined;
 
 };
 

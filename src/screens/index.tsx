@@ -1,7 +1,8 @@
 import LoginScreen from "./login-screen";
 import RegisterScreen from "./register-screen";
 import HomeScreen from "./home-screen";
-import CreateReminderScreen from "./create-reminder-screen";
-import LogoutScreen from "./logout-screen";
+import ReminderFormScreen from "./reminder-form-screen";
+import ProfileScreen from "./profile-screen";
+import OnboardingScreen from "./onboarding-screen";
 
-export {LoginScreen,RegisterScreen,HomeScreen,CreateReminderScreen,LogoutScreen}
+export {LoginScreen,RegisterScreen,HomeScreen,ReminderFormScreen,ProfileScreen,OnboardingScreen}
