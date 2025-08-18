@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Alert } from 'react-native';
 import { validateLoginForm } from '../../utils/validation';
 import { FormField } from './type';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext/AuthContext';
 
 export const useLogin = () => {
   const { login } = useAuth();

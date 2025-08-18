@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, TextStyle} from 'react-native';
 import {AppTextTypes} from './type';
-import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
+import { fontFamilyWeightMap } from '../../../configs/ThemeSetup';
 const AppText = ({
   text = 'text',
   color,

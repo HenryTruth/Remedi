@@ -1,9 +1,9 @@
 import React, {ReactNode} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {pallete} from '../../configs/Colors';
 import AppText from '../app-text';
 import { AppButtonTypes } from './type';
 import { styles } from './styles';
+import { pallete } from '../../../configs/Colors';
 
 const AppButton = ({
   isCentered = true,

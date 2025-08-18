@@ -1,14 +1,14 @@
 import { View } from "react-native"
 import HScreen from "../../components/containers/h-screen";
-import AppText from "../../components/app-text";
 import { pallete } from "../../configs/Colors";
 import { styles } from "./style";
 import { moderateSize } from "../../utils/useResponsiveness";
 import { fontFamilyWeightMap } from "../../configs/ThemeSetup";
-import AppButton from "../../components/app-button";
 import useRegister from "./useRegister";
 import { GlobalScreenTypes } from "../../configs/global-screen-types";
 import FormInputField from "../../components/containers/form-input-field";
+import AppText from "../../components/common/app-text";
+import AppButton from "../../components/common/app-button";
 
 const RegisterScreen = ({navigation}:GlobalScreenTypes) => {
     const { 

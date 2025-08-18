@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { pallete } from '../../configs/Colors';
-import { Size, moderateSize } from '../../utils/useResponsiveness';
+import { pallete } from '../../../configs/Colors';
+import { Size, moderateSize } from '../../../utils/useResponsiveness';
 
 export const styles = StyleSheet.create({
   container: {

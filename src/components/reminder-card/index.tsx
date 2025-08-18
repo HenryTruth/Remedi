@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { View, TouchableOpacity, Animated, Alert } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
-import AppText from '../app-text';
 import { styles } from './styles';
 import { pallete } from '../../configs/Colors';
 import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
+import AppText from '../common/app-text';
 
 export interface ReminderCardProps {
   id: string;

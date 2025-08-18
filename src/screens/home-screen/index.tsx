@@ -4,9 +4,7 @@ import Icon from '@react-native-vector-icons/ionicons';
 import { useNotifications } from '../../contexts/NotificationContext/NotificationContext';
 import { Hscreen } from '../../components/containers';
 import { ReminderCard } from '../../components/reminder-card';
-import { SectionHeader } from '../../components/section-header';
-import { FloatingActionButton } from '../../components/containers/floating-action-button';
-import AppText from '../../components/app-text';
+import { FloatingActionButton } from '../../components/floating-action-button';
 import { useHome } from './useHome';
 import { styles } from './style';
 import { pallete } from '../../configs/Colors';
@@ -15,6 +13,8 @@ import { moderateSize } from '../../utils/useResponsiveness';
 import { GlobalScreenTypes } from '../../configs/global-screen-types';
 import { routes } from '../../routers/router-constants/routes';
 import { useFocusEffect } from '@react-navigation/native';
+import { SectionHeader } from '../../components/headers/section-header';
+import AppText from '../../components/common/app-text';
 
 
 const HomeScreen = ({navigation}:GlobalScreenTypes) => {

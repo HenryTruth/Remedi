@@ -4,9 +4,9 @@ import { HomeScreen, LoginScreen, OnboardingScreen, ProfileScreen, RegisterScree
 import { Stack } from "../router-constants";
 import { routes } from "../router-constants/routes";
 import { RootStackParamList } from "./type";
-import { useAuth } from "../../contexts/AuthContext";
 import { View, ActivityIndicator } from "react-native";
 import { pallete } from "../../configs/Colors";
+import { useAuth } from "../../contexts/AuthContext/AuthContext";
 
 
 
@@ -38,7 +38,7 @@ const NavigationProvider = () => {
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: pallete.screen }}>
-        <ActivityIndicator size="large" color={pallete.primary} />
+        <ActivityIndicator size="large" color={pallete.dark} />
       </View>
     );
   }

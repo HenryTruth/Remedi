@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import {palleteTypes} from '../../configs/Colors';
 import { buttonTypes } from './type';
+import { palleteTypes } from '../../../configs/Colors';
 
 export const styles = (
   type: buttonTypes,

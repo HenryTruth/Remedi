@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { pallete } from '../../../configs/Colors';
-import { Size, moderateSize } from '../../../utils/useResponsiveness';
-import { shadowStyles } from '../../../configs/GlobalStyles';
+import { pallete } from '../../configs/Colors';
+import { Size, moderateSize } from '../../utils/useResponsiveness';
+import { shadowStyles } from '../../configs/GlobalStyles';
 
 export const styles = StyleSheet.create({
   container: {
