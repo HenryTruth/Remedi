@@ -1,6 +1,74 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Remedi 💊
+**Never miss a dose again**
 
-# Getting Started
+Remedi is a React Native medication reminder app that helps you stay on track with your medication schedule through smart notifications and an intuitive interface.
+
+## Features
+
+- 🔐 **Secure Authentication** - Create account and login with persistent storage
+- 💊 **Medication Management** - Add, edit, and track your medications
+- ⏰ **Smart Reminders** - Set custom notification times for each medication
+- 📊 **Progress Tracking** - View completed and upcoming medication schedules
+- 🎨 **Beautiful UI** - Clean, modern interface designed for ease of use
+- 📱 **Cross Platform** - Works on both iOS and Android
+
+## Screenshots
+
+### Onboarding & Authentication
+| Onboarding | Login | Register |
+|------------|-------|----------|
+| ![Onboarding](screenshots/onboarding.png) | ![Login](screenshots/login.png) | ![Register](screenshots/register.png) |
+
+### Main App Features
+| Home Screen | Add Reminder | Profile |
+|-------------|--------------|---------|
+| ![Home](screenshots/home.png) | ![Add Reminder](screenshots/add-reminder.png) | ![Profile](screenshots/profile.png) |
+
+## Tech Stack
+
+- **Framework**: React Native
+- **Language**: TypeScript
+- **Navigation**: React Navigation
+- **Storage**: AsyncStorage
+- **Notifications**: react-native-push-notification
+- **Icons**: react-native-vector-icons
+- **State Management**: React Context API
+- **Authentication**: Custom auth service with AsyncStorage
+- **UI Components**: Custom component library
+
+## Architecture
+
+- **Clean Architecture**: Separation of concerns with services, contexts, and components
+- **Service Layer**: Dedicated services for authentication, notifications, and reminders
+- **Context Providers**: Global state management for auth and notifications
+- **Custom Hooks**: Reusable logic for screens and components
+- **TypeScript**: Full type safety throughout the application
+
+## Installation
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- React Native development environment
+- Xcode (for iOS development)
+- Android Studio (for Android development)
+
+### Clone and Install
+
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd Remedi
+
+# Install dependencies
+npm install
+
+# iOS specific setup
+cd ios && bundle install && bundle exec pod install && cd ..
+```
+
+## Getting Started
 
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
 
@@ -73,25 +141,42 @@ When you want to forcefully reload, for example to reset the state of your app, 
 - **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
 - **iOS**: Press <kbd>R</kbd> in iOS Simulator.
 
-## Congratulations! :tada:
+## Project Structure
 
-You've successfully run and modified your React Native App. :partying_face:
+```
+src/
+├── components/          # Reusable UI components
+│   ├── common/         # Common components (buttons, inputs, text)
+│   ├── containers/     # Layout containers
+│   └── headers/        # Header components
+├── contexts/           # React Context providers
+│   ├── AuthContext/    # Authentication state management
+│   └── NotificationContext/ # Notification state management
+├── screens/            # App screens
+│   ├── home-screen/    # Main dashboard
+│   ├── login-screen/   # User authentication
+│   ├── profile-screen/ # User profile
+│   └── reminder-form-screen/ # Add/edit reminders
+├── services/           # Business logic services
+│   ├── authService/    # Authentication operations
+│   ├── notificationService/ # Push notifications
+│   └── reminderService/ # Reminder CRUD operations
+├── routers/            # Navigation configuration
+└── configs/            # App configuration and constants
+```
 
-### Now what?
+## Contributing
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-# Troubleshooting
+## License
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-# Learn More
+## Support
 
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+If you have any questions or need help with setup, please open an issue on GitHub.

@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingHorizontal: moderateSize(20),
-    paddingBottom: moderateSize(40),
+    paddingBottom: moderateSize(100),
     gap: moderateSize(16),
   },
   buttonStyles: {
