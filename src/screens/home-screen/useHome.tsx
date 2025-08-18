@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Reminder } from './type';
-import reminderService from '../../services/reminderService';
+import reminderService from '../../services/reminderService/reminderService';
 import { Alert } from 'react-native';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext/AuthContext';
 
 export const useHome = () => {
   const { logout } = useAuth();

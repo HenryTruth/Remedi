@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, TextInput } from 'react-native';
-import Icon from '@react-native-vector-icons/ionicons';
+import { Ionicons } from '@react-native-vector-icons/ionicons';
 import { Hscreen } from '../../components/containers';
 import { useReminderForm } from './useReminderForm';
 import { styles } from './styles';
@@ -56,7 +56,7 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
               onPress={() => navigation.goBack()}
               activeOpacity={0.7}
             >
-              <Icon name="arrow-back" size={24} color={pallete.text} />
+              <Ionicons name="arrow-back" size={24} color={pallete.text} />
             </TouchableOpacity>
             <AppText 
               text="Remedi"
@@ -70,7 +70,7 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
               onPress={handleProfilePress}
               activeOpacity={0.7}
             >
-              <Icon name="person" size={20} color={pallete.light} />
+              <Ionicons name="person" size={20} color={pallete.light} />
             </TouchableOpacity>
           </View>
 
