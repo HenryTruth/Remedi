@@ -189,16 +189,43 @@ class NotificationService {
     try {
       const notifications = await this.getScheduledNotifications();
       
-      // Cancel all active notifications
-      for (const notification of notifications.filter(n => n.isActive)) {
+      // Cancel each notification
+      for (const notification of notifications) {
         await this.cancelLocalNotification(notification.id);
       }
-
-      // Clear storage
-      await AsyncStorage.removeItem(SCHEDULED_NOTIFICATIONS_KEY);
+      
+      // Clear stored notifications
+      await this.storeScheduledNotifications([]);
+      
       console.log('All notifications cleared');
     } catch (error) {
-      console.error('Error clearing all notifications:', error);
+      console.error('Error clearing notifications:', error);
+      throw error;
+    }
+  }
+
+  // Test function - schedule a notification for 10 seconds from now
+  async scheduleTestNotification(): Promise<void> {
+    try {
+      const testDate = new Date();
+      testDate.setSeconds(testDate.getSeconds() + 10); // 10 seconds from now
+      
+      const testNotification: ScheduledNotification = {
+        id: `test_${Date.now()}`,
+        reminderId: 'test_reminder',
+        medicationName: 'Test Medication',
+        dosage: '1 tablet',
+        time: testDate.toLocaleTimeString(),
+        scheduledDate: testDate,
+        isActive: true,
+      };
+
+      await this.scheduleLocalNotification(testNotification);
+      
+      console.log(`Test notification scheduled for: ${testDate.toLocaleTimeString()}`);
+      return;
+    } catch (error) {
+      console.error('Error scheduling test notification:', error);
       throw error;
     }
   }

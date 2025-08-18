@@ -7,6 +7,7 @@ interface NotificationContextType {
   requestPermissions: () => Promise<boolean>;
   scheduleReminder: (reminderId: string) => Promise<void>;
   cancelReminder: (reminderId: string) => Promise<void>;
+  scheduleTestNotification: () => Promise<void>;
 }
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
@@ -62,6 +63,15 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     }
   };
 
+  const scheduleTestNotification = async (): Promise<void> => {
+    try {
+      await notificationService.scheduleTestNotification();
+    } catch (error) {
+      console.error('Error scheduling test notification:', error);
+      throw error;
+    }
+  };
+
   const cancelReminder = async (reminderId: string): Promise<void> => {
     try {
       await notificationService.cancelNotificationsForReminder(reminderId);
@@ -79,6 +89,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         requestPermissions,
         scheduleReminder,
         cancelReminder,
+        scheduleTestNotification,
       }}
     >
       {children}
