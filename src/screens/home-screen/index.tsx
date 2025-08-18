@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Alert } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
-import { useNotifications } from '../../contexts/NotificationContext';
+import { useNotifications } from '../../contexts/NotificationContext/NotificationContext';
 import { Hscreen } from '../../components/containers';
 import { ReminderCard } from '../../components/reminder-card';
 import { SectionHeader } from '../../components/section-header';

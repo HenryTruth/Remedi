@@ -5,8 +5,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {enableScreens} from 'react-native-screens';
 import NavigationProvider from './src/routers/navigations';
 import { pallete } from './src/configs/Colors';
-import { AuthProvider } from './src/contexts/AuthContext';
-import { NotificationProvider } from './src/contexts/NotificationContext';
+import { NotificationProvider } from './src/contexts/NotificationContext/NotificationContext';
+import { AuthProvider } from './src/contexts/AuthContext/AuthContext';
 
 enableScreens();
 
