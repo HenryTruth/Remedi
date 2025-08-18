@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import notificationService from '../services/notificationService';
+import notificationService from '../services/notificationService/notificationService';
 
 interface NotificationContextType {
   hasPermission: boolean;

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { StatusBar } from 'react-native';
-import NotificationService from './src/services/notificationService';
+import NotificationService from './src/services/notificationService/notificationService';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {enableScreens} from 'react-native-screens';
