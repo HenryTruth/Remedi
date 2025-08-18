@@ -58,7 +58,7 @@ Remedi is a React Native medication reminder app that helps you stay on track wi
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/HenryTruth/Remedi.git
 cd Remedi
 
 # Install dependencies
