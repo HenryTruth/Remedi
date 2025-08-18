@@ -8,14 +8,8 @@ import { pallete } from './src/configs/Colors';
 enableScreens();
 
 
-// import SplashScreen from 'react-native-splash-screen';
 
 function App(): React.JSX.Element {
-  
-
-  // useEffect(() => {
-  //      SplashScreen.hide();
-  //    }, []);
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <SafeAreaView style={{flex: 1, backgroundColor: pallete.screen}}>

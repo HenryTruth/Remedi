@@ -3,11 +3,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen, LoginScreen, ProfileScreen, RegisterScreen, ReminderFormScreen } from "../../screens";
 import { Stack } from "../router-constants";
 import { routes } from "../router-constants/routes";
+import { RootStackParamList } from "./type";
 
-type RootStackParamList = {
-  ApplicationProvider: undefined;
-  AuthenticationProvider: undefined;
-};
+
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
