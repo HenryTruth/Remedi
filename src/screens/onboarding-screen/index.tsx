@@ -28,6 +28,13 @@ const OnboardingScreen = ({navigation}: GlobalScreenTypes) => {
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer}>
                     <AppText text="Remedi" fontSize={moderateSize(24)} fontWeight={fontFamilyWeightMap.Bold} />
+                    <AppText 
+                        text="Never miss a dose again" 
+                        fontSize={moderateSize(16)} 
+                        fontWeight={fontFamilyWeightMap.Regular}
+                        color={pallete.text}
+                        styles={styles.subtitle}
+                    />
                 </View>
                 <View style={styles.buttonContainer}>
                     {buttons.map((button, index) => (

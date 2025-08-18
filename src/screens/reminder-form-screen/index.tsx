@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, TextInput } from 'react-native';
-import { Ionicons } from '@react-native-vector-icons/ionicons';
+import Ionicons from '@react-native-vector-icons/ionicons';
 import { Hscreen } from '../../components/containers';
 import { useReminderForm } from './useReminderForm';
 import { styles } from './styles';
@@ -9,6 +9,7 @@ import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
 import { GlobalScreenTypes } from '../../configs/global-screen-types';
 import AppText from '../../components/common/app-text';
+import { routes } from '../../routers/router-constants/routes';
 
 const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
   // Get editing data from navigation params
@@ -42,7 +43,7 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
   };
 
   const handleProfilePress = () => {
-    console.log('Navigate to profile');
+    navigation.navigate(routes.ProfileScreen);
   };
 
   return (
