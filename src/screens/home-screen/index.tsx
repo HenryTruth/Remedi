@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Alert } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
+import { useNotifications } from '../../contexts/NotificationContext';
 import { Hscreen } from '../../components/containers';
 import { ReminderCard } from '../../components/reminder-card';
 import { SectionHeader } from '../../components/section-header';
@@ -26,6 +27,8 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
     loadReminders,
     handleLogout
   } = useHome();
+
+  const { scheduleTestNotification } = useNotifications();
 
   // Reload reminders when screen comes into focus
   useFocusEffect(
@@ -57,6 +60,23 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
     navigation.navigate(routes.ProfileScreen);
   };
 
+  const handleTestNotification = async () => {
+    try {
+      await scheduleTestNotification();
+      Alert.alert(
+        "Test Notification Scheduled",
+        "A test notification will appear in 10 seconds!",
+        [{ text: "OK" }]
+      );
+    } catch (error) {
+      Alert.alert(
+        "Error",
+        "Failed to schedule test notification",
+        [{ text: "OK" }]
+      );
+    }
+  };
+
   
 
   return (
@@ -73,6 +93,13 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
               fontWeight={fontFamilyWeightMap.Bold}
             />
             <View style={styles.headerButtons}>
+              <TouchableOpacity 
+                style={styles.logoutButton}
+                onPress={handleTestNotification}
+                activeOpacity={0.7}
+              >
+                <Icon name="notifications-outline" size={20} color={pallete.light} />
+              </TouchableOpacity>
               <TouchableOpacity 
                 style={styles.logoutButton}
                 onPress={handleLogout}

@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Reminder } from '../screens/home-screen/type';
+import notificationService from './notificationService';
 
 const REMINDERS_KEY = '@remedi_reminders';
 
@@ -37,6 +38,10 @@ class ReminderService {
       
       reminders.push(newReminder);
       await this.storeReminders(reminders);
+      
+      // Schedule notifications for the new reminder
+      await notificationService.scheduleNotificationsForReminder(newReminder);
+      
       return newReminder;
     } catch (error) {
       console.error('Error adding reminder:', error);
@@ -58,6 +63,11 @@ class ReminderService {
       reminders[reminderIndex] = updatedReminder;
       
       await this.storeReminders(reminders);
+      
+      // Update notifications for the reminder
+      await notificationService.cancelNotificationsForReminder(id);
+      await notificationService.scheduleNotificationsForReminder(updatedReminder);
+      
       return updatedReminder;
     } catch (error) {
       console.error('Error updating reminder:', error);
@@ -76,6 +86,9 @@ class ReminderService {
       }
 
       await this.storeReminders(filteredReminders);
+      
+      // Cancel notifications for the deleted reminder
+      await notificationService.cancelNotificationsForReminder(id);
     } catch (error) {
       console.error('Error deleting reminder:', error);
       throw error;
