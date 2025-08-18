@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import {ReminderFormData, UseReminderFormProps} from './type';
+import { ReminderFormData, UseReminderFormProps } from './type';
+import reminderService from '../../services/reminderService';
+import { Reminder } from '../home-screen/type';
 
 
 
 export const useReminderForm = ({ editingReminder, isEditMode = false }: UseReminderFormProps = {}) => {
   const [form, setForm] = useState<ReminderFormData>({
     pillName: '',
+    dosage: '',
     selectedTimes: [],
     frequency: '1x',
   });
@@ -15,6 +18,7 @@ export const useReminderForm = ({ editingReminder, isEditMode = false }: UseRemi
     if (isEditMode && editingReminder) {
       setForm({
         pillName: editingReminder.medicationName,
+        dosage: editingReminder.dosage,
         selectedTimes: editingReminder.times,
         frequency: editingReminder.frequency,
       });
@@ -40,6 +44,10 @@ export const useReminderForm = ({ editingReminder, isEditMode = false }: UseRemi
 
   const updatePillName = (pillName: string) => {
     setForm(prev => ({ ...prev, pillName }));
+  };
+
+  const updateDosage = (dosage: string) => {
+    setForm(prev => ({ ...prev, dosage }));
   };
 
   const updateSelectedTimes = (time: string) => {
@@ -75,27 +83,52 @@ export const useReminderForm = ({ editingReminder, isEditMode = false }: UseRemi
 
   const isFormValid = () => {
     const requiredSelections = parseInt(form.frequency.replace('x', ''));
-    return form.pillName.trim() !== '' && form.selectedTimes.length === requiredSelections;
+    return form.pillName.trim() !== '' && 
+           form.dosage.trim() !== '' && 
+           form.selectedTimes.length === requiredSelections;
   };
 
   const resetForm = () => {
     setForm({
       pillName: '',
+      dosage: '',
       selectedTimes: [],
       frequency: '1x',
     });
   };
 
-  const submitForm = () => {
-    if (isFormValid()) {
-      console.log('Submitting form:', form);
-      return {
-        ...form,
-        isEditMode,
-        editingId: editingReminder?.id,
-      };
+  const submitForm = async () => {
+    if (!isFormValid()) {
+      return null;
     }
-    return null;
+
+    try {
+      const reminderData = {
+        medicationName: form.pillName,
+        dosage: form.dosage,
+        times: form.selectedTimes,
+        frequency: form.frequency,
+        isCompleted: false,
+      };
+
+      if (isEditMode && editingReminder) {
+        // Update existing reminder
+        const updatedReminder = await reminderService.updateReminder(
+          editingReminder.id,
+          reminderData
+        );
+        console.log('Updated reminder:', updatedReminder);
+        return updatedReminder;
+      } else {
+        // Create new reminder
+        const newReminder = await reminderService.addReminder(reminderData);
+        console.log('Created new reminder:', newReminder);
+        return newReminder;
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      throw error;
+    }
   };
 
   return {
@@ -103,6 +136,7 @@ export const useReminderForm = ({ editingReminder, isEditMode = false }: UseRemi
     timeOptions,
     frequencyOptions,
     updatePillName,
+    updateDosage,
     updateSelectedTimes,
     updateFrequency,
     isFormValid,

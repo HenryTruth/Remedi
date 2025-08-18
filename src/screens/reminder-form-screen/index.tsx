@@ -20,6 +20,7 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
     timeOptions,
     frequencyOptions,
     updatePillName,
+    updateDosage,
     updateSelectedTimes,
     updateFrequency,
     isFormValid,
@@ -27,11 +28,16 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
     getRecommendedTimes,
   } = useReminderForm({ editingReminder, isEditMode });
 
-  const handleSubmit = () => {
-    const result = submitForm();
-    if (result) {
-      // Navigate back to home screen
-      navigation.goBack();
+  const handleSubmit = async () => {
+    try {
+      const result = await submitForm();
+      if (result) {
+        // Navigate back to home screen
+        navigation.goBack();
+      }
+    } catch (error) {
+      console.error('Error submitting reminder:', error);
+      // Could show an alert here for user feedback
     }
   };
 
@@ -84,6 +90,24 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
               value={form.pillName}
               onChangeText={updatePillName}
               placeholder="Enter pill name"
+              placeholderTextColor={pallete.grey}
+            />
+          </View>
+
+          {/* Dosage Section */}
+          <View style={styles.formSection}>
+            <AppText 
+              text="Dosage"
+              styles={styles.sectionLabel}
+              color={pallete.text}
+              fontSize={moderateSize(14)}
+              fontWeight={fontFamilyWeightMap.Medium}
+            />
+            <TextInput
+              style={styles.inputField}
+              value={form.dosage}
+              onChangeText={updateDosage}
+              placeholder="e.g., 1 tablet, 2 capsules, 5ml"
               placeholderTextColor={pallete.grey}
             />
           </View>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Alert } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import { Hscreen } from '../../components/containers';
@@ -13,18 +13,26 @@ import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
 import { GlobalScreenTypes } from '../../configs/global-screen-types';
 import { routes } from '../../routers/router-constants/routes';
-import { useAuth } from '../../contexts/AuthContext';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 const HomeScreen = ({navigation}:GlobalScreenTypes) => {
-  const { logout } = useAuth();
   const { 
     reminders,
     upcomingReminders, 
     completedReminders, 
     completeReminder,
-    deleteReminder
+    deleteReminder,
+    loadReminders,
+    handleLogout
   } = useHome();
+
+  // Reload reminders when screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      loadReminders();
+    }, [])
+  );
 
   const handleAddReminder = () => {
     // Navigate to create reminder screen
@@ -49,29 +57,7 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
     navigation.navigate(routes.ProfileScreen);
   };
 
-  const handleLogout = () => {
-    Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Logout',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await logout();
-            } catch (error) {
-              Alert.alert('Error', 'Failed to logout. Please try again.');
-            }
-          },
-        },
-      ]
-    );
-  };
+  
 
   return (
     <View style={styles.screenContainer}>
