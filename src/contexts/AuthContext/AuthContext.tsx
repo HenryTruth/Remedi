@@ -11,7 +11,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Check authentication status on app start
   useEffect(() => {
     checkAuthStatus();
   }, []);

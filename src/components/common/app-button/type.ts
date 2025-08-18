@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
 import {ViewStyle} from 'react-native';
-import { fontFamilyTypes } from '../../../configs/type';
+import { fontFamilyTypes } from '../../../configs/Type';
 
 export type AppButtonTypes = {
   isCentered?: boolean;

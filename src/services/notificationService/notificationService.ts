@@ -69,14 +69,11 @@ class NotificationService {
     }
   }
 
-  /**
-   * Schedules all notifications for a given medication reminder.
-   */
+  
   public async scheduleNotificationsForReminder(reminder: Reminder): Promise<void> {
     try {
       const notifications = await this.getScheduledNotifications();
       
-      // Remove existing notifications for this reminder to avoid duplicates
       const filteredNotifications = notifications.filter(n => n.reminderId !== reminder.id);
       
       const newNotifications: ScheduledNotification[] = reminder.times.map(time => ({
@@ -103,9 +100,6 @@ class NotificationService {
     }
   }
 
-  /**
-   * Cancels all notifications for a given reminder ID.
-   */
   public async cancelNotificationsForReminder(reminderId: string): Promise<void> {
     try {
       const notifications = await this.getScheduledNotifications();
@@ -125,9 +119,6 @@ class NotificationService {
     }
   }
 
-  /**
-   * Retrieves all scheduled notifications for a specific reminder.
-   */
   public async getNotificationsForReminder(reminderId: string): Promise<ScheduledNotification[]> {
     try {
       const notifications = await this.getScheduledNotifications();
@@ -138,9 +129,6 @@ class NotificationService {
     }
   }
 
-  /**
-   * Clears all scheduled notifications from the system and storage.
-   */
   public async clearAllNotifications(): Promise<void> {
     try {
       const notifications = await this.getScheduledNotifications();
@@ -158,9 +146,6 @@ class NotificationService {
     }
   }
 
-  /**
-   * Schedules a test notification to fire in 10 seconds.
-   */
   public async scheduleTestNotification(): Promise<void> {
     try {
       const testDate = new Date();
@@ -227,7 +212,6 @@ class NotificationService {
     const timeMatch = time.match(/(\d+):(\d+)\s*(am|pm)/i);
 
     if (!timeMatch) {
-      // Fallback for simplified time like "8am"
       const simpleMatch = time.match(/(\d+)(am|pm)/i);
       if (simpleMatch) {
         let hour = parseInt(simpleMatch[1], 10);
@@ -236,7 +220,6 @@ class NotificationService {
         if (period === 'am' && hour === 12) hour = 0;
         scheduledDate.setHours(hour, 0, 0, 0);
       } else {
-        // Default to 1 hour from now if parsing fails completely
         scheduledDate.setHours(now.getHours() + 1, 0, 0, 0);
         return scheduledDate;
       }

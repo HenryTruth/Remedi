@@ -25,7 +25,6 @@ export const validateUsername = (username: string): ValidationResult => {
     };
   }
   
-  // Check for valid characters (alphanumeric and underscore)
   const validUsernameRegex = /^[a-zA-Z0-9_]+$/;
   if (!validUsernameRegex.test(username)) {
     return {

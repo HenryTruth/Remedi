@@ -5,7 +5,6 @@ import notificationService from '../notificationService/notificationService';
 const REMINDERS_KEY = '@remedi_reminders';
 
 class ReminderService {
-  // Get all reminders
   async getReminders(): Promise<Reminder[]> {
     try {
       const reminders = await AsyncStorage.getItem(REMINDERS_KEY);
@@ -16,7 +15,6 @@ class ReminderService {
     }
   }
 
-  // Store reminders
   async storeReminders(reminders: Reminder[]): Promise<void> {
     try {
       await AsyncStorage.setItem(REMINDERS_KEY, JSON.stringify(reminders));
@@ -26,7 +24,6 @@ class ReminderService {
     }
   }
 
-  // Add new reminder
   async addReminder(reminderData: Omit<Reminder, 'id' | 'createdAt'>): Promise<Reminder> {
     try {
       const reminders = await this.getReminders();
@@ -39,7 +36,6 @@ class ReminderService {
       reminders.push(newReminder);
       await this.storeReminders(reminders);
       
-      // Schedule notifications for the new reminder
       await notificationService.scheduleNotificationsForReminder(newReminder);
       
       return newReminder;
@@ -49,7 +45,6 @@ class ReminderService {
     }
   }
 
-  // Update existing reminder
   async updateReminder(id: string, updates: Partial<Reminder>): Promise<Reminder | null> {
     try {
       const reminders = await this.getReminders();
@@ -64,7 +59,6 @@ class ReminderService {
       
       await this.storeReminders(reminders);
       
-      // Update notifications for the reminder
       await notificationService.cancelNotificationsForReminder(id);
       await notificationService.scheduleNotificationsForReminder(updatedReminder);
       
@@ -75,7 +69,6 @@ class ReminderService {
     }
   }
 
-  // Delete reminder
   async deleteReminder(id: string): Promise<void> {
     try {
       const reminders = await this.getReminders();
@@ -87,7 +80,6 @@ class ReminderService {
 
       await this.storeReminders(filteredReminders);
       
-      // Cancel notifications for the deleted reminder
       await notificationService.cancelNotificationsForReminder(id);
     } catch (error) {
       console.error('Error deleting reminder:', error);
@@ -95,7 +87,6 @@ class ReminderService {
     }
   }
 
-  // Complete reminder
   async completeReminder(id: string): Promise<Reminder | null> {
     try {
       return await this.updateReminder(id, { isCompleted: true });
@@ -105,7 +96,6 @@ class ReminderService {
     }
   }
 
-  // Get reminder by ID
   async getReminderById(id: string): Promise<Reminder | null> {
     try {
       const reminders = await this.getReminders();
@@ -116,7 +106,6 @@ class ReminderService {
     }
   }
 
-  // Get upcoming reminders (not completed)
   async getUpcomingReminders(): Promise<Reminder[]> {
     try {
       const reminders = await this.getReminders();
@@ -127,7 +116,6 @@ class ReminderService {
     }
   }
 
-  // Get completed reminders
   async getCompletedReminders(): Promise<Reminder[]> {
     try {
       const reminders = await this.getReminders();
@@ -138,7 +126,6 @@ class ReminderService {
     }
   }
 
-  // Clear all reminders
   async clearAllReminders(): Promise<void> {
     try {
       await AsyncStorage.removeItem(REMINDERS_KEY);

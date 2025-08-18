@@ -5,17 +5,16 @@ import { styles } from "./style";
 import { moderateSize } from "../../utils/useResponsiveness";
 import { fontFamilyWeightMap } from "../../configs/ThemeSetup";
 import useRegister from "./useRegister";
-import { GlobalScreenTypes } from "../../configs/global-screen-types";
 import FormInputField from "../../components/containers/form-input-field";
 import AppText from "../../components/common/app-text";
 import AppButton from "../../components/common/app-button";
 
-const RegisterScreen = ({navigation}:GlobalScreenTypes) => {
+const RegisterScreen = () => {
     const { 
         registrationFields,
         handleRegister,
         isLoading
-    } = useRegister({navigation});
+    } = useRegister();
 
     return (
         <HScreen screenColor={pallete.screen} hasPadding={false}>

@@ -1,5 +1,5 @@
 import {ReactNode} from 'react';
-import { fontFamilyTypes } from '../../../configs/type';
+import { fontFamilyTypes } from '../../../configs/Type';
 import {TextStyle} from 'react-native';
 
 export type AppTextTypes = {

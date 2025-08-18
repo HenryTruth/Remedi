@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { Alert } from 'react-native';
-import { routes } from "../../routers/router-constants/routes";
-import { GlobalScreenTypes } from "../../configs/global-screen-types";
 import { validateRegistrationForm } from '../../utils/validation';
 import { useAuth } from '../../contexts/AuthContext/AuthContext';
 
-const useRegister = ({navigation}:GlobalScreenTypes) => {
+const useRegister = () => {
     const { register } = useAuth();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');

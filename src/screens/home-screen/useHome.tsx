@@ -10,7 +10,6 @@ export const useHome = () => {
   const [reminders, setReminders] = useState<Reminder[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load reminders from AsyncStorage on component mount
   useEffect(() => {
     loadReminders();
   }, []);

@@ -7,12 +7,11 @@ import { styles } from './styles';
 import { pallete } from '../../configs/Colors';
 import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
-import { GlobalScreenTypes } from '../../configs/global-screen-types';
+import { GlobalScreenTypes } from '../../configs/GlobalScreenTypes';
 import AppText from '../../components/common/app-text';
 import { routes } from '../../routers/router-constants/routes';
 
 const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
-  // Get editing data from navigation params
   const editingReminder = route?.params?.reminder;
   const isEditMode = !!editingReminder;
 
@@ -33,12 +32,10 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
     try {
       const result = await submitForm();
       if (result) {
-        // Navigate back to home screen
         navigation.goBack();
       }
     } catch (error) {
       console.error('Error submitting reminder:', error);
-      // Could show an alert here for user feedback
     }
   };
 
@@ -75,7 +72,6 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
             </TouchableOpacity>
           </View>
 
-          {/* Page Title */}
           <AppText 
             text={isEditMode ? "Edit Reminder" : "Create Reminder"}
             styles={styles.pageTitle}
@@ -84,7 +80,6 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
             fontWeight={fontFamilyWeightMap.SemiBold}
           />
 
-          {/* Pill Name Section */}
           <View style={styles.formSection}>
             <AppText 
               text="Pill Name"
@@ -102,7 +97,6 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
             />
           </View>
 
-          {/* Dosage Section */}
           <View style={styles.formSection}>
             <AppText 
               text="Dosage"
@@ -120,7 +114,6 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
             />
           </View>
 
-          {/* Time in day Section */}
           <View style={styles.formSection}>
             <AppText 
               text="Time in day"
@@ -167,7 +160,6 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
             </View>
           </View>
 
-          {/* Frequency Section */}
           <View style={styles.formSection}>
             <AppText 
               text="Frequency"
@@ -201,7 +193,6 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
         </View>
       </Hscreen>
 
-      {/* Done Button */}
       <TouchableOpacity
         style={[
           styles.doneButton,

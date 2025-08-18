@@ -12,7 +12,6 @@ export const useReminderForm = ({ editingReminder, isEditMode = false }: UseRemi
     frequency: '1x',
   });
 
-  // Initialize form with editing data
   useEffect(() => {
     if (isEditMode && editingReminder) {
       setForm({
@@ -27,15 +26,14 @@ export const useReminderForm = ({ editingReminder, isEditMode = false }: UseRemi
   const timeOptions = ['8am', '12pm', '6pm'];
   const frequencyOptions = ['1x', '2x', '3x'];
 
-  // Smart time suggestions based on frequency
   const getRecommendedTimes = (frequency: string): string[] => {
     switch (frequency) {
       case '1x':
-        return ['8am']; // Morning dose
+        return ['8am'];
       case '2x':
-        return ['8am', '6pm']; // Morning and evening
+        return ['8am', '6pm'];
       case '3x':
-        return ['8am', '12pm', '6pm']; // Morning, noon, and evening
+        return ['8am', '12pm', '6pm'];
       default:
         return [];
     }
@@ -76,7 +74,7 @@ export const useReminderForm = ({ editingReminder, isEditMode = false }: UseRemi
     setForm(prev => ({ 
       ...prev, 
       frequency,
-      selectedTimes: recommendedTimes // Auto-select recommended times
+      selectedTimes: recommendedTimes
     }));
   };
 
@@ -111,7 +109,6 @@ export const useReminderForm = ({ editingReminder, isEditMode = false }: UseRemi
       };
 
       if (isEditMode && editingReminder) {
-        // Update existing reminder
         const updatedReminder = await reminderService.updateReminder(
           editingReminder.id,
           reminderData
@@ -119,7 +116,6 @@ export const useReminderForm = ({ editingReminder, isEditMode = false }: UseRemi
         console.log('Updated reminder:', updatedReminder);
         return updatedReminder;
       } else {
-        // Create new reminder
         const newReminder = await reminderService.addReminder(reminderData);
         console.log('Created new reminder:', newReminder);
         return newReminder;
