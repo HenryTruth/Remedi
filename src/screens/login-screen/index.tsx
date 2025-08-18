@@ -1,13 +1,13 @@
 import { View } from "react-native";
 import HScreen from "../../components/containers/h-screen";
 import { pallete } from "../../configs/Colors";
-import AppText from "../../components/app-text";
-import AppButton from "../../components/app-button";
 import { fontFamilyWeightMap } from "../../configs/ThemeSetup";
 import { styles } from "./style";
 import { moderateSize } from "../../utils/useResponsiveness";
 import { useLogin } from "./useLogin";
 import FormInputField from "../../components/containers/form-input-field";
+import AppText from "../../components/common/app-text";
+import AppButton from "../../components/common/app-button";
 
 const LoginScreen = () => {
     const { formFields, handleLogin, isLoading } = useLogin();

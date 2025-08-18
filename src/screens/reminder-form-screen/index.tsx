@@ -2,13 +2,13 @@ import React from 'react';
 import { View, TouchableOpacity, TextInput } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import { Hscreen } from '../../components/containers';
-import AppText from '../../components/app-text';
 import { useReminderForm } from './useReminderForm';
 import { styles } from './styles';
 import { pallete } from '../../configs/Colors';
 import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
 import { GlobalScreenTypes } from '../../configs/global-screen-types';
+import AppText from '../../components/common/app-text';
 
 const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
   // Get editing data from navigation params

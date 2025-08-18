@@ -4,7 +4,3 @@ export interface UserProfile {
   email?: string;
   createdAt: Date;
 }
-
-export interface UseProfileProps {
-  // Add any props needed for profile management
-}

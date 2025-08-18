@@ -2,7 +2,6 @@ import React from 'react';
 import { View, TouchableOpacity, Alert } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import { Hscreen } from '../../components/containers';
-import AppText from '../../components/app-text';
 import { useProfile } from './useProfile';
 import { styles } from './style';
 import { pallete } from '../../configs/Colors';
@@ -10,6 +9,7 @@ import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
 import { GlobalScreenTypes } from '../../configs/global-screen-types';
 import { useFocusEffect } from '@react-navigation/native';
+import AppText from '../../components/common/app-text';
 
 const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
   const { user, reminderStats, isLoading, handleLogout, loadReminderStats } = useProfile();

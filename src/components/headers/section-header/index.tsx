@@ -1,10 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
-import AppText from '../app-text';
+import AppText from '../../common/app-text';
 import { styles } from './styles';
-import { pallete } from '../../configs/Colors';
-import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
-import { moderateSize } from '../../utils/useResponsiveness';
+import { pallete } from '../../../configs/Colors';
+import { fontFamilyWeightMap } from '../../../configs/ThemeSetup';
+import { moderateSize } from '../../../utils/useResponsiveness';
 
 export interface SectionHeaderProps {
   title: string;

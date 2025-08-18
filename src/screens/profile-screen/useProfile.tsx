@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { UserProfile, UseProfileProps } from './type';
-import { useAuth } from '../../contexts/AuthContext';
-import reminderService from '../../services/reminderService';
+import { UserProfile } from './type';
+import { useAuth } from '../../contexts/AuthContext/AuthContext';
+import reminderService from '../../services/reminderService/reminderService';
 
-export const useProfile = (props: UseProfileProps = {}) => {
+export const useProfile = () => {
   const { user: authUser, logout } = useAuth();
   const [reminderStats, setReminderStats] = useState({
     activeMedications: 0,

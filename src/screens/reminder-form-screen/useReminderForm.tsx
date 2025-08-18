@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ReminderFormData, UseReminderFormProps } from './type';
-import reminderService from '../../services/reminderService';
-import { Reminder } from '../home-screen/type';
+import reminderService from '../../services/reminderService/reminderService';
 
 
 

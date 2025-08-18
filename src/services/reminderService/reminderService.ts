@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Reminder } from '../screens/home-screen/type';
-import notificationService from './notificationService';
+import { Reminder } from '../../screens/home-screen/type';
+import notificationService from '../notificationService/notificationService';
 
 const REMINDERS_KEY = '@remedi_reminders';
 

@@ -1,6 +1,6 @@
 import React, { forwardRef, ForwardedRef } from 'react';
 import { TextInput, TextInputProps, StyleSheet, ViewStyle, TextStyle } from "react-native";
-import { pallete } from '../../configs/Colors'; // Adjust this import path as needed
+import { pallete } from '../../../configs/Colors';
 
 interface AppInputProps extends Omit<TextInputProps, 'style'> {
   value: string;

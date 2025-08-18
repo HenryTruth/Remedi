@@ -1,20 +1,12 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import notificationService from '../services/notificationService';
+import notificationService from '../../services/notificationService/notificationService';
+import { NotificationContextType, NotificationProviderProps } from './type';
 
-interface NotificationContextType {
-  hasPermission: boolean;
-  isLoading: boolean;
-  requestPermissions: () => Promise<boolean>;
-  scheduleReminder: (reminderId: string) => Promise<void>;
-  cancelReminder: (reminderId: string) => Promise<void>;
-  scheduleTestNotification: () => Promise<void>;
-}
+
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
 
-interface NotificationProviderProps {
-  children: ReactNode;
-}
+
 
 export const NotificationProvider: React.FC<NotificationProviderProps> = ({ children }) => {
   const [hasPermission, setHasPermission] = useState(false);

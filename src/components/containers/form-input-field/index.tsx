@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { FormField } from "../../../screens/login-screen/type";
-import AppText from "../../app-text";
-import AppInput from "../../app-input";
+import AppText from "../../common/app-text";
+import AppInput from "../../common/app-input";
 import styles from "./style";
 import { moderateSize } from "../../../utils/useResponsiveness";
 import { fontFamilyWeightMap } from "../../../configs/ThemeSetup";

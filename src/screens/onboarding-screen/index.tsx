@@ -1,13 +1,13 @@
 import { View } from "react-native"
 import HScreen from "../../components/containers/h-screen"
-import AppText from "../../components/app-text"
 import { moderateSize } from "../../utils/useResponsiveness"
-import AppButton from "../../components/app-button"
 import { pallete } from "../../configs/Colors"
 import { fontFamilyWeightMap } from "../../configs/ThemeSetup"
 import { styles } from "./style"
 import { GlobalScreenTypes } from "../../configs/global-screen-types"
 import { routes } from "../../routers/router-constants/routes"
+import AppButton from "../../components/common/app-button"
+import AppText from "../../components/common/app-text"
 
 const OnboardingScreen = ({navigation}: GlobalScreenTypes) => {
     const navigateToLogin = () => {

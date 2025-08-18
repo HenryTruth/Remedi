@@ -1,26 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthData, RegisteredUser, User } from './type';
 
-const AUTH_TOKEN_KEY = '@remedi_auth_token';
-const USER_DATA_KEY = '@remedi_user_data';
-const REGISTERED_USERS_KEY = '@remedi_registered_users';
 
-export interface User {
-  id: string;
-  username: string;
-  email?: string;
-}
-
-export interface RegisteredUser {
-  id: string;
-  username: string;
-  email: string;
-  password: string; // In production, this should be hashed
-}
-
-export interface AuthData {
-  token: string;
-  user: User;
-}
 
 class AuthService {
   // Store authentication data
