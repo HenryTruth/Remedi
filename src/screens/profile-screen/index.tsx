@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Alert } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import { Hscreen } from '../../components/containers';
 import AppText from '../../components/app-text';
@@ -9,14 +9,37 @@ import { pallete } from '../../configs/Colors';
 import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
 import { GlobalScreenTypes } from '../../configs/global-screen-types';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
-  const { user, handleLogout } = useProfile();
+  const { user, reminderStats, isLoading, handleLogout, loadReminderStats } = useProfile();
+
+  // Reload stats when screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      loadReminderStats();
+    }, [])
+  );
 
   const handleLogoutPress = () => {
-    handleLogout();
-    // Navigate back to login screen or home
-    navigation.goBack();
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: async () => {
+            await handleLogout();
+            // Navigation will be handled by auth context
+          },
+        },
+      ]
+    );
   };
 
   const handleBackPress = () => {
@@ -52,7 +75,7 @@ const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
               <Icon name="person" size={60} color={pallete.light} />
             </View>
             <AppText 
-              text={user.name}
+              text={user?.username || 'User'}
               styles={styles.userName}
               color={pallete.text}
               fontSize={moderateSize(24)}
@@ -82,7 +105,7 @@ const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
                   fontWeight={fontFamilyWeightMap.SemiBold}
                 />
                 <AppText 
-                  text="3 medications"
+                  text={`${reminderStats.activeMedications} medications`}
                   styles={styles.infoSubtitle}
                   color={pallete.grey}
                   fontSize={moderateSize(14)}
@@ -104,7 +127,7 @@ const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
                   fontWeight={fontFamilyWeightMap.SemiBold}
                 />
                 <AppText 
-                  text="Today at 2:00 PM"
+                  text={reminderStats.nextReminder ? `Today at ${reminderStats.nextReminder}` : 'No upcoming reminders'}
                   styles={styles.infoSubtitle}
                   color={pallete.grey}
                   fontSize={moderateSize(14)}
@@ -126,7 +149,7 @@ const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
                   fontWeight={fontFamilyWeightMap.SemiBold}
                 />
                 <AppText 
-                  text="2 of 4 doses"
+                  text={`${reminderStats.completedToday} of ${reminderStats.totalToday} doses`}
                   styles={styles.infoSubtitle}
                   color={pallete.grey}
                   fontSize={moderateSize(14)}

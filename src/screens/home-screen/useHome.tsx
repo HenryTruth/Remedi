@@ -1,88 +1,123 @@
-import { useState } from 'react';
-import {Reminder} from './type'
+import { useState, useEffect } from 'react';
+import { Reminder } from './type';
+import reminderService from '../../services/reminderService';
+import { Alert } from 'react-native';
+import { useAuth } from '../../contexts/AuthContext';
 
 export const useHome = () => {
-  const [reminders, setReminders] = useState<Reminder[]>([
-    // Sample data - replace with actual data source
-    {
-      id: '1',
-      medicationName: 'Antacid',
-      dosage: '2 tabs',
-      times: ['8am'],
-      frequency: '1x',
-      isCompleted: false,
-      createdAt: new Date(),
-    },
-    {
-      id: '2',
-      medicationName: 'Vitamin D',
-      dosage: '1 tablet',
-      times: ['8am', '6pm'],
-      frequency: '2x',
-      isCompleted: false,
-      createdAt: new Date(),
-    },
-    {
-      id: '3',
-      medicationName: 'Calcium',
-      dosage: '1 pill',
-      times: ['8am', '12pm', '6pm'],
-      frequency: '3x',
-      isCompleted: true,
-      createdAt: new Date(),
-    },
-    {
-        id: '4',
-        medicationName: 'Omega-3',
-        dosage: '2 capsules',
-        times: ['8am'],
-        frequency: '1x',
-        isCompleted: true,
-        createdAt: new Date(),
-      },
-      {
-        id: '5',
-        medicationName: 'Iron',
-        dosage: '1 tablet',
-        times: ['8am', '6pm'],
-        frequency: '2x',
-        isCompleted: true,
-        createdAt: new Date(),
-      },
-  ]);
+  const { logout } = useAuth();
+
+  const [reminders, setReminders] = useState<Reminder[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load reminders from AsyncStorage on component mount
+  useEffect(() => {
+    loadReminders();
+  }, []);
+
+  const loadReminders = async () => {
+    try {
+      setIsLoading(true);
+      const storedReminders = await reminderService.getReminders();
+      setReminders(storedReminders);
+    } catch (error) {
+      console.error('Error loading reminders:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
 
   const upcomingReminders = reminders.filter(reminder => !reminder.isCompleted);
   const completedReminders = reminders.filter(reminder => reminder.isCompleted);
 
-  const completeReminder = (id: string) => {
-    setReminders(prev => 
-      prev.map(reminder => 
-        reminder.id === id 
-          ? { ...reminder, isCompleted: true }
-          : reminder
-      )
+  const completeReminder = async (id: string) => {
+    try {
+      await reminderService.completeReminder(id);
+      setReminders(prev => 
+        prev.map(reminder => 
+          reminder.id === id 
+            ? { ...reminder, isCompleted: true }
+            : reminder
+        )
+      );
+    } catch (error) {
+      console.error('Error completing reminder:', error);
+    }
+  };
+
+  const addReminder = async (newReminder: Omit<Reminder, 'id' | 'createdAt'>) => {
+    try {
+      const reminder = await reminderService.addReminder(newReminder);
+      setReminders(prev => [...prev, reminder]);
+      return reminder;
+    } catch (error) {
+      console.error('Error adding reminder:', error);
+      throw error;
+    }
+  };
+
+  const updateReminder = async (id: string, updates: Partial<Reminder>) => {
+    try {
+      const updatedReminder = await reminderService.updateReminder(id, updates);
+      if (updatedReminder) {
+        setReminders(prev => 
+          prev.map(reminder => 
+            reminder.id === id ? updatedReminder : reminder
+          )
+        );
+        return updatedReminder;
+      }
+    } catch (error) {
+      console.error('Error updating reminder:', error);
+      throw error;
+    }
+  };
+
+  const deleteReminder = async (id: string) => {
+    try {
+      await reminderService.deleteReminder(id);
+      setReminders(prev => prev.filter(reminder => reminder.id !== id));
+    } catch (error) {
+      console.error('Error deleting reminder:', error);
+      throw error;
+    }
+  };
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await logout();
+            } catch (error) {
+              Alert.alert('Error', 'Failed to logout. Please try again.');
+            }
+          },
+        },
+      ]
     );
-  };
-
-  const addReminder = (newReminder: Omit<Reminder, 'id' | 'createdAt'>) => {
-    const reminder: Reminder = {
-      ...newReminder,
-      id: Date.now().toString(),
-      createdAt: new Date(),
-    };
-    setReminders(prev => [...prev, reminder]);
-  };
-
-  const deleteReminder = (id: string) => {
-    setReminders(prev => prev.filter(reminder => reminder.id !== id));
   };
 
   return {
     reminders,
     upcomingReminders,
     completedReminders,
+    isLoading,
     completeReminder,
     addReminder,
+    updateReminder,
     deleteReminder,
+    loadReminders,
+    handleLogout
   };
 };
