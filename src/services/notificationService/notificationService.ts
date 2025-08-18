@@ -13,6 +13,12 @@ import {
 
 class NotificationService {
   public initialize() {
+    // Skip notification setup for Android temporarily
+    if (Platform.OS === 'android') {
+      console.log('[NOTIFICATION SERVICE] Android notifications disabled temporarily');
+      return;
+    }
+
     PushNotification.configure({
       onRegister: function (token) {
         console.log('TOKEN:', token);
@@ -44,20 +50,18 @@ class NotificationService {
 
       requestPermissions: Platform.OS === 'ios',
     });
-
-    // Create notification channel for Android
-    if (Platform.OS === 'android') {
-      this.createAndroidChannel();
-    }
   }
 
-  /**
-   * Requests notification permissions from the user.
-   */
+ 
   public async requestPermissions(): Promise<boolean> {
+    // Skip for Android temporarily
+    if (Platform.OS === 'android') {
+      console.log('[NOTIFICATION PERMISSIONS] Android permissions disabled temporarily');
+      return false;
+    }
+
     try {
       console.log('[NOTIFICATION PERMISSIONS] Requesting permissions...');
-      
       const permissions = await PushNotification.requestPermissions(['alert', 'badge', 'sound']);
       const granted = !!(permissions.alert && permissions.badge && permissions.sound);
       
@@ -71,12 +75,18 @@ class NotificationService {
 
   
   public async scheduleNotificationsForReminder(reminder: Reminder): Promise<void> {
+    if (Platform.OS === 'android') {
+      console.log(`[ANDROID SKIP] Notifications disabled for ${reminder.medicationName}`);
+      return;
+    }
+
     try {
       const notifications = await this.getScheduledNotifications();
-      
-      const filteredNotifications = notifications.filter(n => n.reminderId !== reminder.id);
-      
-      const newNotifications: ScheduledNotification[] = reminder.times.map(time => ({
+      const filteredNotifications = notifications.filter(
+        (n: ScheduledNotification) => n.reminderId !== reminder.id,
+      );
+
+      const newNotifications: ScheduledNotification[] = reminder.times.map((time: string) => ({
         id: `${reminder.id}_${time}_${Date.now()}`,
         reminderId: reminder.id,
         medicationName: reminder.medicationName,
@@ -139,9 +149,7 @@ class NotificationService {
       
       await this.storeScheduledNotifications([]);
       
-      console.log('All notifications cleared');
     } catch (error) {
-      console.error('Error clearing notifications:', error);
       throw error;
     }
   }
@@ -163,9 +171,7 @@ class NotificationService {
 
       await this.scheduleLocalNotification(testNotification);
       
-      console.log(`Test notification scheduled for: ${testDate.toLocaleTimeString()}`);
     } catch (error) {
-      console.error('Error scheduling test notification:', error);
       throw error;
     }
   }
@@ -191,7 +197,6 @@ class NotificationService {
       const notificationsJSON = await AsyncStorage.getItem(SCHEDULED_NOTIFICATIONS_KEY);
       return notificationsJSON ? JSON.parse(notificationsJSON) : [];
     } catch (error) {
-      console.error('Error getting scheduled notifications:', error);
       return [];
     }
   }
@@ -200,7 +205,6 @@ class NotificationService {
     try {
       await AsyncStorage.setItem(SCHEDULED_NOTIFICATIONS_KEY, JSON.stringify(notifications));
     } catch (error) {
-      console.error('Error storing scheduled notifications:', error);
       throw error;
     }
   }
@@ -261,11 +265,7 @@ class NotificationService {
         vibrate: true,
       });
 
-      console.log(
-        `[NOTIFICATION SCHEDULED] ${notification.medicationName} at ${notification.scheduledDate.toLocaleTimeString()}`,
-      );
     } catch (error) {
-      console.error('Error scheduling local notification:', error);
       throw error;
     }
   }
@@ -273,9 +273,7 @@ class NotificationService {
   private async cancelLocalNotification(notificationId: string): Promise<void> {
     try {
       PushNotification.cancelLocalNotifications({ id: notificationId });
-      console.log(`[NOTIFICATION CANCELLED] ${notificationId}`);
     } catch (error) {
-      console.error('Error cancelling local notification:', error);
       throw error;
     }
   }
