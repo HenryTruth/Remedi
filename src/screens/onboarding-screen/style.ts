@@ -15,6 +15,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: moderateSize(100),
   },
+  subtitle: {
+    marginTop: moderateSize(8),
+    textAlign: 'center',
+    paddingHorizontal: moderateSize(20),
+  },
   buttonContainer: {
     paddingHorizontal: moderateSize(20),
     paddingBottom: moderateSize(40),

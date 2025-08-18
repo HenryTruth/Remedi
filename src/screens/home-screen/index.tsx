@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, TouchableOpacity, Alert } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import { useNotifications } from '../../contexts/NotificationContext/NotificationContext';
@@ -10,7 +10,7 @@ import { styles } from './style';
 import { pallete } from '../../configs/Colors';
 import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
-import { GlobalScreenTypes } from '../../configs/global-screen-types';
+import { GlobalScreenTypes } from '../../configs/GlobalScreenTypes';
 import { routes } from '../../routers/router-constants/routes';
 import { useFocusEffect } from '@react-navigation/native';
 import { SectionHeader } from '../../components/headers/section-header';
@@ -30,7 +30,6 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
 
   const { scheduleTestNotification } = useNotifications();
 
-  // Reload reminders when screen comes into focus
   useFocusEffect(
     React.useCallback(() => {
       loadReminders();
@@ -38,13 +37,10 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
   );
 
   const handleAddReminder = () => {
-    // Navigate to create reminder screen
-    console.log('Navigate to create reminder');
     navigation.navigate(routes.ReminderFormScreen, { reminder: undefined });
   };
 
   const handleReminderPress = (id: string) => {
-    // Navigate to edit reminder screen
     const reminder = reminders.find((r: any) => r.id === id);
     if (reminder) {
       navigation.navigate(routes.ReminderFormScreen, { reminder });
@@ -56,7 +52,6 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
   };
 
   const handleProfilePress = () => {
-    // Navigate to profile screen
     navigation.navigate(routes.ProfileScreen);
   };
 
@@ -83,7 +78,6 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
     <View style={styles.screenContainer}>
       <Hscreen screenColor={pallete.screen} hasPadding={false}>
         <View style={styles.container}>
-          {/* Header */}
           <View style={styles.header}>
             <AppText 
               text="Remedi"
@@ -117,7 +111,6 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
             </View>
           </View>
 
-          {/* Dashboard Title */}
           <AppText 
             text="Dashboard"
             styles={styles.dashboardTitle}
@@ -126,9 +119,7 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
             fontWeight={fontFamilyWeightMap.SemiBold}
           />
 
-          {/* Content */}
           <View style={styles.content}>
-            {/* Upcoming Section */}
             <SectionHeader 
               title="Upcoming" 
               count={upcomingReminders.length}
@@ -161,7 +152,6 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
               </View>
             )}
 
-            {/* Completed Section */}
             {completedReminders.length > 0 && (
               <>
                 <SectionHeader 
@@ -187,7 +177,6 @@ const HomeScreen = ({navigation}:GlobalScreenTypes) => {
         </View>
       </Hscreen>
 
-      {/* Floating Action Button - Outside ScrollView */}
       <FloatingActionButton onPress={handleAddReminder} />
     </View>
   );

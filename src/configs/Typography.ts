@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {pallete} from './Colors';
-import {fontFamilyTypes} from './type';
+import {fontFamilyTypes} from './Type';
 
 const fontFamily: fontFamilyTypes = {
   Medium: '400',

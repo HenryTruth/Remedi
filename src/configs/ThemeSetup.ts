@@ -1,4 +1,4 @@
-import { fontFamilyTypes } from "./type";
+import { fontFamilyTypes } from "./Type";
 
 
 

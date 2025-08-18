@@ -7,14 +7,13 @@ import { styles } from './style';
 import { pallete } from '../../configs/Colors';
 import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
-import { GlobalScreenTypes } from '../../configs/global-screen-types';
+import { GlobalScreenTypes } from '../../configs/GlobalScreenTypes';
 import { useFocusEffect } from '@react-navigation/native';
 import AppText from '../../components/common/app-text';
 
 const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
-  const { user, reminderStats, isLoading, handleLogout, loadReminderStats } = useProfile();
+  const { user, reminderStats, handleLogout, loadReminderStats } = useProfile();
 
-  // Reload stats when screen comes into focus
   useFocusEffect(
     React.useCallback(() => {
       loadReminderStats();
@@ -35,7 +34,6 @@ const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
           style: 'destructive',
           onPress: async () => {
             await handleLogout();
-            // Navigation will be handled by auth context
           },
         },
       ]
@@ -50,7 +48,6 @@ const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
     <View style={styles.screenContainer}>
       <Hscreen screenColor={pallete.screen} hasPadding={false}>
         <View style={styles.container}>
-          {/* Header */}
           <View style={styles.header}>
             <TouchableOpacity 
               style={styles.backButton}
@@ -69,7 +66,6 @@ const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
             <View style={styles.headerSpacer} />
           </View>
 
-          {/* Profile Avatar Section */}
           <View style={styles.avatarSection}>
             <View style={styles.avatarContainer}>
               <Icon name="person" size={60} color={pallete.light} />
@@ -90,7 +86,6 @@ const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
             />
           </View>
 
-          {/* Profile Info Cards */}
           <View style={styles.infoSection}>
             <View style={styles.infoCard}>
               <View style={styles.infoIconContainer}>
@@ -159,7 +154,6 @@ const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
             </View>
           </View>
 
-          {/* Settings Section */}
           <View style={styles.settingsSection}>
             <TouchableOpacity style={styles.settingsItem} activeOpacity={0.7}>
               <View style={styles.settingsIconContainer}>
@@ -204,7 +198,6 @@ const ProfileScreen = ({ navigation }: GlobalScreenTypes) => {
             </TouchableOpacity>
           </View>
 
-          {/* Logout Button */}
           <TouchableOpacity
             style={styles.logoutButton}
             onPress={handleLogoutPress}

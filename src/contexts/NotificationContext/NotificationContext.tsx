@@ -12,7 +12,6 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
   const [hasPermission, setHasPermission] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Check permissions on app start
   useEffect(() => {
     checkPermissions();
   }, []);
@@ -20,13 +19,10 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
   const checkPermissions = async () => {
     try {
       setIsLoading(true);
-      // For now, assume permissions are granted
       setHasPermission(true);
     } catch (error) {
-      console.error('Error checking notification permissions:', error);
       setHasPermission(false);
     } finally {
-      // Request notification permissions
       requestPermissions();
       setIsLoading(false);
     }
@@ -39,7 +35,6 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
       setHasPermission(granted);
       return granted;
     } catch (error) {
-      console.error('Error requesting permissions:', error);
       setHasPermission(false);
       return false;
     }
@@ -47,10 +42,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 
   const scheduleReminder = async (reminderId: string): Promise<void> => {
     try {
-      // This would be handled by the reminder service
-      console.log(`Scheduling notifications for reminder: ${reminderId}`);
     } catch (error) {
-      console.error('Error scheduling reminder:', error);
       throw error;
     }
   };
@@ -59,7 +51,6 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     try {
       await notificationService.scheduleTestNotification();
     } catch (error) {
-      console.error('Error scheduling test notification:', error);
       throw error;
     }
   };
@@ -68,7 +59,6 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     try {
       await notificationService.cancelNotificationsForReminder(reminderId);
     } catch (error) {
-      console.error('Error cancelling reminder:', error);
       throw error;
     }
   };

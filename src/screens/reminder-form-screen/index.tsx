@@ -1,17 +1,17 @@
 import React from 'react';
 import { View, TouchableOpacity, TextInput } from 'react-native';
-import Icon from '@react-native-vector-icons/ionicons';
+import Ionicons from '@react-native-vector-icons/ionicons';
 import { Hscreen } from '../../components/containers';
 import { useReminderForm } from './useReminderForm';
 import { styles } from './styles';
 import { pallete } from '../../configs/Colors';
 import { fontFamilyWeightMap } from '../../configs/ThemeSetup';
 import { moderateSize } from '../../utils/useResponsiveness';
-import { GlobalScreenTypes } from '../../configs/global-screen-types';
+import { GlobalScreenTypes } from '../../configs/GlobalScreenTypes';
 import AppText from '../../components/common/app-text';
+import { routes } from '../../routers/router-constants/routes';
 
 const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
-  // Get editing data from navigation params
   const editingReminder = route?.params?.reminder;
   const isEditMode = !!editingReminder;
 
@@ -32,17 +32,15 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
     try {
       const result = await submitForm();
       if (result) {
-        // Navigate back to home screen
         navigation.goBack();
       }
     } catch (error) {
       console.error('Error submitting reminder:', error);
-      // Could show an alert here for user feedback
     }
   };
 
   const handleProfilePress = () => {
-    console.log('Navigate to profile');
+    navigation.navigate(routes.ProfileScreen);
   };
 
   return (
@@ -56,7 +54,7 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
               onPress={() => navigation.goBack()}
               activeOpacity={0.7}
             >
-              <Icon name="arrow-back" size={24} color={pallete.text} />
+              <Ionicons name="arrow-back" size={24} color={pallete.text} />
             </TouchableOpacity>
             <AppText 
               text="Remedi"
@@ -70,11 +68,10 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
               onPress={handleProfilePress}
               activeOpacity={0.7}
             >
-              <Icon name="person" size={20} color={pallete.light} />
+              <Ionicons name="person" size={20} color={pallete.light} />
             </TouchableOpacity>
           </View>
 
-          {/* Page Title */}
           <AppText 
             text={isEditMode ? "Edit Reminder" : "Create Reminder"}
             styles={styles.pageTitle}
@@ -83,7 +80,6 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
             fontWeight={fontFamilyWeightMap.SemiBold}
           />
 
-          {/* Pill Name Section */}
           <View style={styles.formSection}>
             <AppText 
               text="Pill Name"
@@ -101,7 +97,6 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
             />
           </View>
 
-          {/* Dosage Section */}
           <View style={styles.formSection}>
             <AppText 
               text="Dosage"
@@ -119,7 +114,6 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
             />
           </View>
 
-          {/* Time in day Section */}
           <View style={styles.formSection}>
             <AppText 
               text="Time in day"
@@ -166,7 +160,6 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
             </View>
           </View>
 
-          {/* Frequency Section */}
           <View style={styles.formSection}>
             <AppText 
               text="Frequency"
@@ -200,7 +193,6 @@ const ReminderFormScreen = ({ navigation, route }: GlobalScreenTypes) => {
         </View>
       </Hscreen>
 
-      {/* Done Button */}
       <TouchableOpacity
         style={[
           styles.doneButton,

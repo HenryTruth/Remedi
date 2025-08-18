@@ -1,8 +1,8 @@
 import React from 'react';
 import {KeyboardAvoidingView, Platform, ScrollView, View} from 'react-native';
-import {HflatScreenStyles} from '../h-flatscreen/styles';
 import {HScreenStyles} from './styles';
 import { HScreenTypes } from './type';
+import { HflatScreenStyles } from '../h-flatscreen/styles';
 
 const Hscreen = ({children, hasPadding = true, screenColor, colors}: HScreenTypes) => {
   // const colors = pallete;

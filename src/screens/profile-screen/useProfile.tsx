@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { UserProfile } from './type';
 import { useAuth } from '../../contexts/AuthContext/AuthContext';
 import reminderService from '../../services/reminderService/reminderService';
 
@@ -13,7 +12,6 @@ export const useProfile = () => {
   });
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load reminder statistics
   useEffect(() => {
     loadReminderStats();
   }, []);
@@ -25,14 +23,11 @@ export const useProfile = () => {
       const upcomingReminders = await reminderService.getUpcomingReminders();
       const completedReminders = await reminderService.getCompletedReminders();
 
-      // Calculate active medications (unique medication names)
       const uniqueMedications = new Set(upcomingReminders.map(r => r.medicationName));
       
-      // Calculate today's stats (simplified - in real app would check actual dates)
       const totalToday = reminders.length;
       const completedToday = completedReminders.length;
 
-      // Find next reminder time (simplified - would use actual time logic)
       const nextReminder = upcomingReminders.length > 0 
         ? upcomingReminders[0].times[0] 
         : null;
