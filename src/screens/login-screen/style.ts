@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {pallete} from '../../configs/Colors';
 import { moderateSize } from '../../utils/useResponsiveness';
-import { hp, wp } from '../../configs/Config';
+import { hp, wp } from '../../configs/config';
 
 export const styles = StyleSheet.create({
   container: {
